@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 (2025-10-15)
+
+Full Changelog: [v0.1.0...v1.0.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v0.1.0...v1.0.0)
+
+### Chores
+
+* update SDK settings ([0c5c64a](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/0c5c64af3e9eff718eeaf4d9097308fdf42351a9))
+
 ## 0.1.0 (2025-10-15)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v0.0.1...v0.1.0)
