@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import builtins
 from typing import List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -152,8 +151,6 @@ class Response(ModelResponsePropertiesStandard, ResponseProperties):
 
     parallel_tool_calls: bool
     """Whether to allow the model to run tool calls in parallel."""
-
-    conversation: Optional[builtins.object] = None
 
     status: Optional[Literal["completed", "failed", "in_progress", "cancelled", "queued", "incomplete"]] = None
     """The status of the response generation.

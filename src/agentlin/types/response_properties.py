@@ -5,9 +5,15 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .response_tool import ResponseTool
+from .conversations.input_file_content import InputFileContent
+from .conversations.input_text_content import InputTextContent
+from .conversations.input_image_content import InputImageContent
+from .text_response_format_configuration import TextResponseFormatConfiguration
 
 __all__ = [
     "ResponseProperties",
+    "Prompt",
+    "PromptVariables",
     "Reasoning",
     "Text",
     "ToolChoice",
@@ -17,6 +23,23 @@ __all__ = [
     "ToolChoiceToolChoiceMcp",
     "ToolChoiceToolChoiceCustom",
 ]
+
+PromptVariables: TypeAlias = Union[str, InputTextContent, InputImageContent, InputFileContent]
+
+
+class Prompt(BaseModel):
+    id: str
+    """The unique identifier of the prompt template to use."""
+
+    variables: Optional[Dict[str, PromptVariables]] = None
+    """Optional map of values to substitute in for variables in your prompt.
+
+    The substitution values can either be strings, or other Response input types
+    like images or files.
+    """
+
+    version: Optional[str] = None
+    """Optional version of the prompt template."""
 
 
 class Reasoning(BaseModel):
@@ -49,7 +72,21 @@ class Reasoning(BaseModel):
 
 
 class Text(BaseModel):
-    format: Optional[object] = None
+    format: Optional[TextResponseFormatConfiguration] = None
+    """An object specifying the format that the model must output.
+
+    Configuring `{ "type": "json_schema" }` enables Structured Outputs, which
+    ensures the model will match your supplied JSON schema. Learn more in the
+    [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+
+    The default format is `{ "type": "text" }` with no additional options.
+
+    **Not recommended for gpt-4o and newer models:**
+
+    Setting to `{ "type": "json_object" }` enables the older JSON mode, which
+    ensures the message the model generates is valid JSON. Using `json_schema` is
+    preferred for models that support it.
+    """
 
     verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Constrains the verbosity of the model's response.
@@ -171,7 +208,23 @@ class ResponseProperties(BaseModel):
     ignored.
     """
 
-    model: Optional[object] = None
+    model: Optional[
+        Literal[
+            "o1-pro",
+            "o1-pro-2025-03-19",
+            "o3-pro",
+            "o3-pro-2025-06-10",
+            "o3-deep-research",
+            "o3-deep-research-2025-06-26",
+            "o4-mini-deep-research",
+            "o4-mini-deep-research-2025-06-26",
+            "computer-use-preview",
+            "computer-use-preview-2025-03-11",
+            "gpt-5-codex",
+            "gpt-5-pro",
+            "gpt-5-pro-2025-10-06",
+        ]
+    ] = None
     """Model ID used to generate the response, like `gpt-4o` or `o3`.
 
     OpenAI offers a wide range of models with different capabilities, performance
@@ -188,7 +241,11 @@ class ResponseProperties(BaseModel):
     Cannot be used in conjunction with `conversation`.
     """
 
-    prompt: Optional[object] = None
+    prompt: Optional[Prompt] = None
+    """
+    Reference to a prompt template and its variables.
+    [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+    """
 
     reasoning: Optional[Reasoning] = None
     """**gpt-5 and o-series models only**

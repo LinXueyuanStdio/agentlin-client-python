@@ -14,3 +14,7 @@ from .conversation_delete_response import ConversationDeleteResponse as Conversa
 from .response_list_input_items_params import ResponseListInputItemsParams as ResponseListInputItemsParams
 from .model_response_properties_standard import ModelResponsePropertiesStandard as ModelResponsePropertiesStandard
 from .response_list_input_items_response import ResponseListInputItemsResponse as ResponseListInputItemsResponse
+from .text_response_format_configuration import TextResponseFormatConfiguration as TextResponseFormatConfiguration
+from .text_response_format_configuration_param import (
+    TextResponseFormatConfigurationParam as TextResponseFormatConfigurationParam,
+)

@@ -59,10 +59,25 @@ class ResponsesResource(SyncAPIResource):
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
-        model: object | Omit = omit,
+        model: Literal[
+            "o1-pro",
+            "o1-pro-2025-03-19",
+            "o3-pro",
+            "o3-pro-2025-06-10",
+            "o3-deep-research",
+            "o3-deep-research-2025-06-26",
+            "o4-mini-deep-research",
+            "o4-mini-deep-research-2025-06-26",
+            "computer-use-preview",
+            "computer-use-preview-2025-03-11",
+            "gpt-5-codex",
+            "gpt-5-pro",
+            "gpt-5-pro-2025-10-06",
+        ]
+        | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
-        prompt: object | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: str | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: str | Omit = omit,
@@ -171,6 +186,9 @@ class ResponsesResource(SyncAPIResource):
               multi-turn conversations. Learn more about
               [conversation state](https://platform.openai.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
+
+          prompt: Reference to a prompt template and its variables.
+              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
           prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
@@ -553,10 +571,25 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
-        model: object | Omit = omit,
+        model: Literal[
+            "o1-pro",
+            "o1-pro-2025-03-19",
+            "o3-pro",
+            "o3-pro-2025-06-10",
+            "o3-deep-research",
+            "o3-deep-research-2025-06-26",
+            "o4-mini-deep-research",
+            "o4-mini-deep-research-2025-06-26",
+            "computer-use-preview",
+            "computer-use-preview-2025-03-11",
+            "gpt-5-codex",
+            "gpt-5-pro",
+            "gpt-5-pro-2025-10-06",
+        ]
+        | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
-        prompt: object | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: str | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: str | Omit = omit,
@@ -665,6 +698,9 @@ class AsyncResponsesResource(AsyncAPIResource):
               multi-turn conversations. Learn more about
               [conversation state](https://platform.openai.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
+
+          prompt: Reference to a prompt template and its variables.
+              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
           prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
