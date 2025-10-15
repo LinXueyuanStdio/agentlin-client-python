@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from agentlin import Agentlin, BaseModel, AsyncAgentlin
-from agentlin._response import (
+from agentlin_client import Client, BaseModel, AsyncClient
+from agentlin_client._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from agentlin._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from agentlin._streaming import Stream
-from agentlin._base_client import FinalRequestOptions
+from agentlin_client._streaming import Stream
+from agentlin_client._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -37,7 +37,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'agentlin._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'agentlin_client._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -56,7 +56,7 @@ def test_extract_response_type_binary_response() -> None:
 class PydanticModel(pydantic.BaseModel): ...
 
 
-def test_response_parse_mismatched_basemodel(client: Agentlin) -> None:
+def test_response_parse_mismatched_basemodel(client: Client) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -68,13 +68,13 @@ def test_response_parse_mismatched_basemodel(client: Agentlin) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from agentlin import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from agentlin_client import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncAgentlin) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -86,12 +86,12 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncAgen
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from agentlin import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from agentlin_client import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: Agentlin) -> None:
+def test_response_parse_custom_stream(client: Client) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -106,7 +106,7 @@ def test_response_parse_custom_stream(client: Agentlin) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncAgentlin) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -125,7 +125,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: Agentlin) -> None:
+def test_response_parse_custom_model(client: Client) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -141,7 +141,7 @@ def test_response_parse_custom_model(client: Agentlin) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncAgentlin) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -156,7 +156,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncAgentlin) ->
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: Agentlin) -> None:
+def test_response_parse_annotated_type(client: Client) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -173,7 +173,7 @@ def test_response_parse_annotated_type(client: Agentlin) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncAgentlin) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -201,7 +201,7 @@ async def test_async_response_parse_annotated_type(async_client: AsyncAgentlin) 
         ("FalSe", False),
     ],
 )
-def test_response_parse_bool(client: Agentlin, content: str, expected: bool) -> None:
+def test_response_parse_bool(client: Client, content: str, expected: bool) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -226,7 +226,7 @@ def test_response_parse_bool(client: Agentlin, content: str, expected: bool) -> 
         ("FalSe", False),
     ],
 )
-async def test_async_response_parse_bool(client: AsyncAgentlin, content: str, expected: bool) -> None:
+async def test_async_response_parse_bool(client: AsyncClient, content: str, expected: bool) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -245,7 +245,7 @@ class OtherModel(BaseModel):
 
 
 @pytest.mark.parametrize("client", [False], indirect=True)  # loose validation
-def test_response_parse_expect_model_union_non_json_content(client: Agentlin) -> None:
+def test_response_parse_expect_model_union_non_json_content(client: Client) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=client,
@@ -262,7 +262,7 @@ def test_response_parse_expect_model_union_non_json_content(client: Agentlin) ->
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("async_client", [False], indirect=True)  # loose validation
-async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncAgentlin) -> None:
+async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=async_client,

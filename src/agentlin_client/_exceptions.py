@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class AgentlinError(Exception):
+class ClientError(Exception):
     pass
 
 
-class APIError(AgentlinError):
+class APIError(ClientError):
     message: str
     request: httpx.Request
 
