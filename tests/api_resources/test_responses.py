@@ -23,17 +23,62 @@ class TestResponses:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Agentlin) -> None:
+        response = client.responses.create()
+        assert_matches_type(Response, response, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Agentlin) -> None:
         response = client.responses.create(
-            body={},
+            background=True,
+            conversation="string",
+            include=["code_interpreter_call.outputs"],
+            input="string",
+            instructions="instructions",
+            max_output_tokens=0,
+            max_tool_calls=0,
+            metadata={"foo": "string"},
+            model={},
+            parallel_tool_calls=True,
+            previous_response_id="previous_response_id",
+            prompt={},
+            prompt_cache_key="prompt-cache-key-1234",
+            reasoning={
+                "effort": "minimal",
+                "generate_summary": "auto",
+                "summary": "auto",
+            },
+            safety_identifier="safety-identifier-1234",
+            service_tier="auto",
+            store=True,
+            stream=True,
+            stream_options={"include_obfuscation": True},
+            temperature=1,
+            text={
+                "format": {},
+                "verbosity": "low",
+            },
+            tool_choice="none",
+            tools=[
+                {
+                    "name": "name",
+                    "parameters": {"foo": "bar"},
+                    "strict": True,
+                    "type": "function",
+                    "description": "description",
+                }
+            ],
+            top_logprobs=0,
+            top_p=1,
+            truncation="auto",
+            user="user-1234",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Agentlin) -> None:
-        http_response = client.responses.with_raw_response.create(
-            body={},
-        )
+        http_response = client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
         assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -43,9 +88,7 @@ class TestResponses:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Agentlin) -> None:
-        with client.responses.with_streaming_response.create(
-            body={},
-        ) as http_response:
+        with client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -255,17 +298,62 @@ class TestAsyncResponses:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncAgentlin) -> None:
+        response = await async_client.responses.create()
+        assert_matches_type(Response, response, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.responses.create(
-            body={},
+            background=True,
+            conversation="string",
+            include=["code_interpreter_call.outputs"],
+            input="string",
+            instructions="instructions",
+            max_output_tokens=0,
+            max_tool_calls=0,
+            metadata={"foo": "string"},
+            model={},
+            parallel_tool_calls=True,
+            previous_response_id="previous_response_id",
+            prompt={},
+            prompt_cache_key="prompt-cache-key-1234",
+            reasoning={
+                "effort": "minimal",
+                "generate_summary": "auto",
+                "summary": "auto",
+            },
+            safety_identifier="safety-identifier-1234",
+            service_tier="auto",
+            store=True,
+            stream=True,
+            stream_options={"include_obfuscation": True},
+            temperature=1,
+            text={
+                "format": {},
+                "verbosity": "low",
+            },
+            tool_choice="none",
+            tools=[
+                {
+                    "name": "name",
+                    "parameters": {"foo": "bar"},
+                    "strict": True,
+                    "type": "function",
+                    "description": "description",
+                }
+            ],
+            top_logprobs=0,
+            top_p=1,
+            truncation="auto",
+            user="user-1234",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncAgentlin) -> None:
-        http_response = await async_client.responses.with_raw_response.create(
-            body={},
-        )
+        http_response = await async_client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
         assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -275,9 +363,7 @@ class TestAsyncResponses:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncAgentlin) -> None:
-        async with async_client.responses.with_streaming_response.create(
-            body={},
-        ) as http_response:
+        async with async_client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 

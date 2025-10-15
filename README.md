@@ -117,28 +117,11 @@ from agentlin import Agentlin
 
 client = Agentlin()
 
-thread_object = client.threads.create(
-    tool_resources={},
+response = client.responses.create(
+    reasoning={},
 )
-print(thread_object.tool_resources)
+print(response.reasoning)
 ```
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
-
-```python
-from pathlib import Path
-from agentlin import Agentlin
-
-client = Agentlin()
-
-client.chatkit.upload_file(
-    file=Path("/path/to/file"),
-)
-```
-
-The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
