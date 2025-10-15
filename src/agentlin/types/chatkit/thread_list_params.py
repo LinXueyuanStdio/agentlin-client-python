@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
-
-from ..order_enum import OrderEnum
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ThreadListParams"]
 
@@ -25,7 +23,7 @@ class ThreadListParams(TypedDict, total=False):
     limit: int
     """Maximum number of thread items to return. Defaults to 20."""
 
-    order: OrderEnum
+    order: Literal["asc", "desc"]
     """Sort order for results by creation time. Defaults to `desc`."""
 
     user: str

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ...types import OrderEnum
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -17,7 +18,6 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.chatkit import thread_list_params, thread_list_items_params
-from ...types.order_enum import OrderEnum
 from ...types.chatkit.thread import Thread
 from ...types.chatkit.thread_list_response import ThreadListResponse
 from ...types.chatkit.thread_delete_response import ThreadDeleteResponse
@@ -85,7 +85,7 @@ class ThreadsResource(SyncAPIResource):
         after: str | Omit = omit,
         before: str | Omit = omit,
         limit: int | Omit = omit,
-        order: OrderEnum | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -180,7 +180,7 @@ class ThreadsResource(SyncAPIResource):
         after: str | Omit = omit,
         before: str | Omit = omit,
         limit: int | Omit = omit,
-        order: OrderEnum | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,7 +292,7 @@ class AsyncThreadsResource(AsyncAPIResource):
         after: str | Omit = omit,
         before: str | Omit = omit,
         limit: int | Omit = omit,
-        order: OrderEnum | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -387,7 +387,7 @@ class AsyncThreadsResource(AsyncAPIResource):
         after: str | Omit = omit,
         before: str | Omit = omit,
         limit: int | Omit = omit,
-        order: OrderEnum | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
