@@ -6,6 +6,7 @@ from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .mcp_tool_filter_param import McpToolFilterParam
 
 __all__ = [
     "ResponseToolParam",
@@ -23,11 +24,8 @@ __all__ = [
     "WebSearchToolUserLocation",
     "Mcp",
     "McpAllowedTools",
-    "McpAllowedToolsMcpToolFilter",
     "McpRequireApproval",
     "McpRequireApprovalMcpToolApprovalFilter",
-    "McpRequireApprovalMcpToolApprovalFilterAlways",
-    "McpRequireApprovalMcpToolApprovalFilterNever",
     "CodeInterpreter",
     "CodeInterpreterContainer",
     "CodeInterpreterContainerCodeInterpreterToolAuto",
@@ -47,7 +45,7 @@ class Function(TypedDict, total=False):
     name: Required[str]
     """The name of the function to call."""
 
-    parameters: Required[Optional[Dict[str, object]]]
+    parameters: Required[Optional[object]]
     """A JSON schema object describing the parameters of the function."""
 
     strict: Required[Optional[bool]]
@@ -233,53 +231,14 @@ class WebSearchTool(TypedDict, total=False):
     """The approximate location of the user."""
 
 
-class McpAllowedToolsMcpToolFilter(TypedDict, total=False):
-    read_only: bool
-    """Indicates whether or not a tool modifies data or is read-only.
-
-    If an MCP server is
-    [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
-    it will match this filter.
-    """
-
-    tool_names: SequenceNotStr[str]
-    """List of allowed tool names."""
-
-
-McpAllowedTools: TypeAlias = Union[SequenceNotStr[str], McpAllowedToolsMcpToolFilter]
-
-
-class McpRequireApprovalMcpToolApprovalFilterAlways(TypedDict, total=False):
-    read_only: bool
-    """Indicates whether or not a tool modifies data or is read-only.
-
-    If an MCP server is
-    [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
-    it will match this filter.
-    """
-
-    tool_names: SequenceNotStr[str]
-    """List of allowed tool names."""
-
-
-class McpRequireApprovalMcpToolApprovalFilterNever(TypedDict, total=False):
-    read_only: bool
-    """Indicates whether or not a tool modifies data or is read-only.
-
-    If an MCP server is
-    [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
-    it will match this filter.
-    """
-
-    tool_names: SequenceNotStr[str]
-    """List of allowed tool names."""
+McpAllowedTools: TypeAlias = Union[SequenceNotStr[str], McpToolFilterParam]
 
 
 class McpRequireApprovalMcpToolApprovalFilter(TypedDict, total=False):
-    always: McpRequireApprovalMcpToolApprovalFilterAlways
+    always: McpToolFilterParam
     """A filter object to specify which tools are allowed."""
 
-    never: McpRequireApprovalMcpToolApprovalFilterNever
+    never: McpToolFilterParam
     """A filter object to specify which tools are allowed."""
 
 
