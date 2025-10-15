@@ -9,7 +9,6 @@ import pytest
 
 from agentlin import Agentlin, AsyncAgentlin
 from tests.utils import assert_matches_type
-from agentlin.types.threads.runs import RunStepObject, StepListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -25,7 +24,7 @@ class TestSteps:
             thread_id="thread_id",
             run_id="run_id",
         )
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -36,7 +35,7 @@ class TestSteps:
             run_id="run_id",
             include=["step_details.tool_calls[*].file_search.results[*].content"],
         )
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -50,7 +49,7 @@ class TestSteps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = response.parse()
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -64,7 +63,7 @@ class TestSteps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = response.parse()
-            assert_matches_type(RunStepObject, step, path=["response"])
+            assert_matches_type(object, step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -99,7 +98,7 @@ class TestSteps:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -113,7 +112,7 @@ class TestSteps:
             limit=0,
             order="asc",
         )
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -126,7 +125,7 @@ class TestSteps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = response.parse()
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -139,7 +138,7 @@ class TestSteps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = response.parse()
-            assert_matches_type(StepListResponse, step, path=["response"])
+            assert_matches_type(object, step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -172,7 +171,7 @@ class TestAsyncSteps:
             thread_id="thread_id",
             run_id="run_id",
         )
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -183,7 +182,7 @@ class TestAsyncSteps:
             run_id="run_id",
             include=["step_details.tool_calls[*].file_search.results[*].content"],
         )
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -197,7 +196,7 @@ class TestAsyncSteps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = await response.parse()
-        assert_matches_type(RunStepObject, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -211,7 +210,7 @@ class TestAsyncSteps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = await response.parse()
-            assert_matches_type(RunStepObject, step, path=["response"])
+            assert_matches_type(object, step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -246,7 +245,7 @@ class TestAsyncSteps:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -260,7 +259,7 @@ class TestAsyncSteps:
             limit=0,
             order="asc",
         )
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -273,7 +272,7 @@ class TestAsyncSteps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = await response.parse()
-        assert_matches_type(StepListResponse, step, path=["response"])
+        assert_matches_type(object, step, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -286,7 +285,7 @@ class TestAsyncSteps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = await response.parse()
-            assert_matches_type(StepListResponse, step, path=["response"])
+            assert_matches_type(object, step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

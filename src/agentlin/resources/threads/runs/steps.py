@@ -19,8 +19,6 @@ from ...._response import (
 )
 from ...._base_client import make_request_options
 from ....types.threads.runs import step_list_params, step_retrieve_params
-from ....types.threads.runs.run_step_object import RunStepObject
-from ....types.threads.runs.step_list_response import StepListResponse
 
 __all__ = ["StepsResource", "AsyncStepsResource"]
 
@@ -58,7 +56,7 @@ class StepsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunStepObject:
+    ) -> object:
         """
         Retrieves a run step.
 
@@ -94,7 +92,7 @@ class StepsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"include": include}, step_retrieve_params.StepRetrieveParams),
             ),
-            cast_to=RunStepObject,
+            cast_to=object,
         )
 
     def list(
@@ -113,7 +111,7 @@ class StepsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StepListResponse:
+    ) -> object:
         """
         Returns a list of run steps belonging to a run.
 
@@ -172,7 +170,7 @@ class StepsResource(SyncAPIResource):
                     step_list_params.StepListParams,
                 ),
             ),
-            cast_to=StepListResponse,
+            cast_to=object,
         )
 
 
@@ -209,7 +207,7 @@ class AsyncStepsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunStepObject:
+    ) -> object:
         """
         Retrieves a run step.
 
@@ -245,7 +243,7 @@ class AsyncStepsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"include": include}, step_retrieve_params.StepRetrieveParams),
             ),
-            cast_to=RunStepObject,
+            cast_to=object,
         )
 
     async def list(
@@ -264,7 +262,7 @@ class AsyncStepsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StepListResponse:
+    ) -> object:
         """
         Returns a list of run steps belonging to a run.
 
@@ -323,7 +321,7 @@ class AsyncStepsResource(AsyncAPIResource):
                     step_list_params.StepListParams,
                 ),
             ),
-            cast_to=StepListResponse,
+            cast_to=object,
         )
 
 

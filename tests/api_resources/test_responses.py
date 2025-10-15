@@ -30,53 +30,6 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Agentlin) -> None:
-        response = client.responses.create(
-            body={
-                "background": True,
-                "max_output_tokens": 0,
-                "max_tool_calls": 0,
-                "model": "gpt-4o",
-                "previous_response_id": "previous_response_id",
-                "prompt": {
-                    "id": "id",
-                    "variables": {"foo": "string"},
-                    "version": "version",
-                },
-                "reasoning": {
-                    "effort": "minimal",
-                    "generate_summary": "auto",
-                    "summary": "auto",
-                },
-                "text": {
-                    "format": {"type": "text"},
-                    "verbosity": "low",
-                },
-                "tool_choice": "none",
-                "tools": [
-                    {
-                        "name": "name",
-                        "parameters": {"foo": "bar"},
-                        "strict": True,
-                        "type": "function",
-                        "description": "description",
-                    }
-                ],
-                "truncation": "auto",
-                "conversation": "string",
-                "include": ["code_interpreter_call.outputs"],
-                "input": "string",
-                "instructions": "instructions",
-                "parallel_tool_calls": True,
-                "store": True,
-                "stream": True,
-                "stream_options": {"include_obfuscation": True},
-            },
-        )
-        assert_matches_type(Response, response, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: Agentlin) -> None:
         http_response = client.responses.with_raw_response.create(
             body={},
@@ -304,53 +257,6 @@ class TestAsyncResponses:
     async def test_method_create(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.responses.create(
             body={},
-        )
-        assert_matches_type(Response, response, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        response = await async_client.responses.create(
-            body={
-                "background": True,
-                "max_output_tokens": 0,
-                "max_tool_calls": 0,
-                "model": "gpt-4o",
-                "previous_response_id": "previous_response_id",
-                "prompt": {
-                    "id": "id",
-                    "variables": {"foo": "string"},
-                    "version": "version",
-                },
-                "reasoning": {
-                    "effort": "minimal",
-                    "generate_summary": "auto",
-                    "summary": "auto",
-                },
-                "text": {
-                    "format": {"type": "text"},
-                    "verbosity": "low",
-                },
-                "tool_choice": "none",
-                "tools": [
-                    {
-                        "name": "name",
-                        "parameters": {"foo": "bar"},
-                        "strict": True,
-                        "type": "function",
-                        "description": "description",
-                    }
-                ],
-                "truncation": "auto",
-                "conversation": "string",
-                "include": ["code_interpreter_call.outputs"],
-                "input": "string",
-                "instructions": "instructions",
-                "parallel_tool_calls": True,
-                "store": True,
-                "stream": True,
-                "stream_options": {"include_obfuscation": True},
-            },
         )
         assert_matches_type(Response, response, path=["response"])
 

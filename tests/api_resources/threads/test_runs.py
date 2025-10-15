@@ -9,10 +9,6 @@ import pytest
 
 from agentlin import Agentlin, AsyncAgentlin
 from tests.utils import assert_matches_type
-from agentlin.types.threads import (
-    RunObject,
-    RunListResponse,
-)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -25,76 +21,45 @@ class TestRuns:
     def test_method_create(self, client: Agentlin) -> None:
         run = client.threads.runs.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Agentlin) -> None:
         run = client.threads.runs.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
             include=["step_details.tool_calls[*].file_search.results[*].content"],
-            additional_instructions="additional_instructions",
-            additional_messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                    "attachments": [
-                        {
-                            "file_id": "file_id",
-                            "tools": [{"type": "code_interpreter"}],
-                        }
-                    ],
-                    "metadata": {"foo": "string"},
-                }
-            ],
-            instructions="instructions",
-            max_completion_tokens=256,
-            max_prompt_tokens=256,
-            metadata={"foo": "string"},
-            model="string",
-            parallel_tool_calls=True,
-            reasoning_effort="minimal",
-            response_format="auto",
-            stream=True,
-            temperature=1,
-            tool_choice="none",
-            tools=[{"type": "code_interpreter"}],
-            top_p=1,
-            truncation_strategy={
-                "type": "auto",
-                "last_messages": 1,
-            },
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Agentlin) -> None:
         response = client.threads.runs.with_raw_response.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Agentlin) -> None:
         with client.threads.runs.with_streaming_response.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -104,7 +69,7 @@ class TestRuns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             client.threads.runs.with_raw_response.create(
                 thread_id="",
-                assistant_id="assistant_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -114,7 +79,7 @@ class TestRuns:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -127,7 +92,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -140,7 +105,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -165,18 +130,9 @@ class TestRuns:
         run = client.threads.runs.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Agentlin) -> None:
-        run = client.threads.runs.update(
-            run_id="run_id",
-            thread_id="thread_id",
-            metadata={"foo": "string"},
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -184,12 +140,13 @@ class TestRuns:
         response = client.threads.runs.with_raw_response.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -197,12 +154,13 @@ class TestRuns:
         with client.threads.runs.with_streaming_response.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -213,12 +171,14 @@ class TestRuns:
             client.threads.runs.with_raw_response.update(
                 run_id="run_id",
                 thread_id="",
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.threads.runs.with_raw_response.update(
                 run_id="",
                 thread_id="thread_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -227,7 +187,7 @@ class TestRuns:
         run = client.threads.runs.list(
             thread_id="thread_id",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -239,7 +199,7 @@ class TestRuns:
             limit=0,
             order="asc",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -251,7 +211,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -263,7 +223,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -282,7 +242,7 @@ class TestRuns:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -295,7 +255,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -308,7 +268,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -331,90 +291,33 @@ class TestRuns:
     @parametrize
     def test_method_create_with_run(self, client: Agentlin) -> None:
         run = client.threads.runs.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_create_with_run_with_all_params(self, client: Agentlin) -> None:
-        run = client.threads.runs.create_with_run(
-            assistant_id="assistant_id",
-            instructions="instructions",
-            max_completion_tokens=256,
-            max_prompt_tokens=256,
-            metadata={"foo": "string"},
-            model="string",
-            parallel_tool_calls=True,
-            response_format="auto",
-            stream=True,
-            temperature=1,
-            thread={
-                "messages": [
-                    {
-                        "content": "string",
-                        "role": "user",
-                        "attachments": [
-                            {
-                                "file_id": "file_id",
-                                "tools": [{"type": "code_interpreter"}],
-                            }
-                        ],
-                        "metadata": {"foo": "string"},
-                    }
-                ],
-                "metadata": {"foo": "string"},
-                "tool_resources": {
-                    "code_interpreter": {"file_ids": ["string"]},
-                    "file_search": {
-                        "vector_store_ids": ["string"],
-                        "vector_stores": [
-                            {
-                                "chunking_strategy": {"type": "auto"},
-                                "file_ids": ["string"],
-                                "metadata": {"foo": "string"},
-                            }
-                        ],
-                    },
-                },
-            },
-            tool_choice="none",
-            tool_resources={
-                "code_interpreter": {"file_ids": ["string"]},
-                "file_search": {"vector_store_ids": ["string"]},
-            },
-            tools=[{"type": "code_interpreter"}],
-            top_p=1,
-            truncation_strategy={
-                "type": "auto",
-                "last_messages": 1,
-            },
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_with_run(self, client: Agentlin) -> None:
         response = client.threads.runs.with_raw_response.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_with_run(self, client: Agentlin) -> None:
         with client.threads.runs.with_streaming_response.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -424,25 +327,9 @@ class TestRuns:
         run = client.threads.runs.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_submit_tool_outputs_with_all_params(self, client: Agentlin) -> None:
-        run = client.threads.runs.submit_tool_outputs(
-            run_id="run_id",
-            thread_id="thread_id",
-            tool_outputs=[
-                {
-                    "output": "output",
-                    "tool_call_id": "tool_call_id",
-                }
-            ],
-            stream=True,
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -450,13 +337,13 @@ class TestRuns:
         response = client.threads.runs.with_raw_response.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -464,13 +351,13 @@ class TestRuns:
         with client.threads.runs.with_streaming_response.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -481,14 +368,14 @@ class TestRuns:
             client.threads.runs.with_raw_response.submit_tool_outputs(
                 run_id="run_id",
                 thread_id="",
-                tool_outputs=[{}],
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.threads.runs.with_raw_response.submit_tool_outputs(
                 run_id="",
                 thread_id="thread_id",
-                tool_outputs=[{}],
+                body={},
             )
 
 
@@ -502,76 +389,45 @@ class TestAsyncRuns:
     async def test_method_create(self, async_client: AsyncAgentlin) -> None:
         run = await async_client.threads.runs.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
         run = await async_client.threads.runs.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
             include=["step_details.tool_calls[*].file_search.results[*].content"],
-            additional_instructions="additional_instructions",
-            additional_messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                    "attachments": [
-                        {
-                            "file_id": "file_id",
-                            "tools": [{"type": "code_interpreter"}],
-                        }
-                    ],
-                    "metadata": {"foo": "string"},
-                }
-            ],
-            instructions="instructions",
-            max_completion_tokens=256,
-            max_prompt_tokens=256,
-            metadata={"foo": "string"},
-            model="string",
-            parallel_tool_calls=True,
-            reasoning_effort="minimal",
-            response_format="auto",
-            stream=True,
-            temperature=1,
-            tool_choice="none",
-            tools=[{"type": "code_interpreter"}],
-            top_p=1,
-            truncation_strategy={
-                "type": "auto",
-                "last_messages": 1,
-            },
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.threads.runs.with_raw_response.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncAgentlin) -> None:
         async with async_client.threads.runs.with_streaming_response.create(
             thread_id="thread_id",
-            assistant_id="assistant_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -581,7 +437,7 @@ class TestAsyncRuns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             await async_client.threads.runs.with_raw_response.create(
                 thread_id="",
-                assistant_id="assistant_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -591,7 +447,7 @@ class TestAsyncRuns:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -604,7 +460,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -617,7 +473,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -642,18 +498,9 @@ class TestAsyncRuns:
         run = await async_client.threads.runs.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        run = await async_client.threads.runs.update(
-            run_id="run_id",
-            thread_id="thread_id",
-            metadata={"foo": "string"},
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -661,12 +508,13 @@ class TestAsyncRuns:
         response = await async_client.threads.runs.with_raw_response.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -674,12 +522,13 @@ class TestAsyncRuns:
         async with async_client.threads.runs.with_streaming_response.update(
             run_id="run_id",
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -690,12 +539,14 @@ class TestAsyncRuns:
             await async_client.threads.runs.with_raw_response.update(
                 run_id="run_id",
                 thread_id="",
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.threads.runs.with_raw_response.update(
                 run_id="",
                 thread_id="thread_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -704,7 +555,7 @@ class TestAsyncRuns:
         run = await async_client.threads.runs.list(
             thread_id="thread_id",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -716,7 +567,7 @@ class TestAsyncRuns:
             limit=0,
             order="asc",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -728,7 +579,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -740,7 +591,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -759,7 +610,7 @@ class TestAsyncRuns:
             run_id="run_id",
             thread_id="thread_id",
         )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -772,7 +623,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -785,7 +636,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -808,90 +659,33 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_create_with_run(self, async_client: AsyncAgentlin) -> None:
         run = await async_client.threads.runs.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_with_run_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        run = await async_client.threads.runs.create_with_run(
-            assistant_id="assistant_id",
-            instructions="instructions",
-            max_completion_tokens=256,
-            max_prompt_tokens=256,
-            metadata={"foo": "string"},
-            model="string",
-            parallel_tool_calls=True,
-            response_format="auto",
-            stream=True,
-            temperature=1,
-            thread={
-                "messages": [
-                    {
-                        "content": "string",
-                        "role": "user",
-                        "attachments": [
-                            {
-                                "file_id": "file_id",
-                                "tools": [{"type": "code_interpreter"}],
-                            }
-                        ],
-                        "metadata": {"foo": "string"},
-                    }
-                ],
-                "metadata": {"foo": "string"},
-                "tool_resources": {
-                    "code_interpreter": {"file_ids": ["string"]},
-                    "file_search": {
-                        "vector_store_ids": ["string"],
-                        "vector_stores": [
-                            {
-                                "chunking_strategy": {"type": "auto"},
-                                "file_ids": ["string"],
-                                "metadata": {"foo": "string"},
-                            }
-                        ],
-                    },
-                },
-            },
-            tool_choice="none",
-            tool_resources={
-                "code_interpreter": {"file_ids": ["string"]},
-                "file_search": {"vector_store_ids": ["string"]},
-            },
-            tools=[{"type": "code_interpreter"}],
-            top_p=1,
-            truncation_strategy={
-                "type": "auto",
-                "last_messages": 1,
-            },
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_with_run(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.threads.runs.with_raw_response.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_with_run(self, async_client: AsyncAgentlin) -> None:
         async with async_client.threads.runs.with_streaming_response.create_with_run(
-            assistant_id="assistant_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -901,25 +695,9 @@ class TestAsyncRuns:
         run = await async_client.threads.runs.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         )
-        assert_matches_type(RunObject, run, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_submit_tool_outputs_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        run = await async_client.threads.runs.submit_tool_outputs(
-            run_id="run_id",
-            thread_id="thread_id",
-            tool_outputs=[
-                {
-                    "output": "output",
-                    "tool_call_id": "tool_call_id",
-                }
-            ],
-            stream=True,
-        )
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -927,13 +705,13 @@ class TestAsyncRuns:
         response = await async_client.threads.runs.with_raw_response.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunObject, run, path=["response"])
+        assert_matches_type(object, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -941,13 +719,13 @@ class TestAsyncRuns:
         async with async_client.threads.runs.with_streaming_response.submit_tool_outputs(
             run_id="run_id",
             thread_id="thread_id",
-            tool_outputs=[{}],
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunObject, run, path=["response"])
+            assert_matches_type(object, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -958,12 +736,12 @@ class TestAsyncRuns:
             await async_client.threads.runs.with_raw_response.submit_tool_outputs(
                 run_id="run_id",
                 thread_id="",
-                tool_outputs=[{}],
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.threads.runs.with_raw_response.submit_tool_outputs(
                 run_id="",
                 thread_id="thread_id",
-                tool_outputs=[{}],
+                body={},
             )

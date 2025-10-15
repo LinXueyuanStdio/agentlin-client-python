@@ -35,9 +35,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.thread_object import ThreadObject
-from ...types.chat.metadata_param import MetadataParam
 from ...types.thread_delete_response import ThreadDeleteResponse
-from ...types.threads.create_message_request_param import CreateMessageRequestParam
 
 __all__ = ["ThreadsResource", "AsyncThreadsResource"]
 
@@ -73,8 +71,8 @@ class ThreadsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[CreateMessageRequestParam] | Omit = omit,
-        metadata: Optional[MetadataParam] | Omit = omit,
+        messages: Iterable[object] | Omit = omit,
+        metadata: object | Omit = omit,
         tool_resources: Optional[thread_create_params.ToolResources] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -89,13 +87,6 @@ class ThreadsResource(SyncAPIResource):
         Args:
           messages: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to
               start the thread with.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
-              for storing additional information about the object in a structured format, and
-              querying for objects via API or the dashboard.
-
-              Keys are strings with a maximum length of 64 characters. Values are strings with
-              a maximum length of 512 characters.
 
           tool_resources: A set of resources that are made available to the assistant's tools in this
               thread. The resources are specific to the type of tool. For example, the
@@ -163,8 +154,7 @@ class ThreadsResource(SyncAPIResource):
         self,
         thread_id: str,
         *,
-        metadata: Optional[MetadataParam] | Omit = omit,
-        tool_resources: Optional[thread_update_params.ToolResources] | Omit = omit,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -176,18 +166,6 @@ class ThreadsResource(SyncAPIResource):
         Modifies a thread.
 
         Args:
-          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
-              for storing additional information about the object in a structured format, and
-              querying for objects via API or the dashboard.
-
-              Keys are strings with a maximum length of 64 characters. Values are strings with
-              a maximum length of 512 characters.
-
-          tool_resources: A set of resources that are made available to the assistant's tools in this
-              thread. The resources are specific to the type of tool. For example, the
-              `code_interpreter` tool requires a list of file IDs, while the `file_search`
-              tool requires a list of vector store IDs.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -200,13 +178,7 @@ class ThreadsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         return self._post(
             f"/threads/{thread_id}",
-            body=maybe_transform(
-                {
-                    "metadata": metadata,
-                    "tool_resources": tool_resources,
-                },
-                thread_update_params.ThreadUpdateParams,
-            ),
+            body=maybe_transform(body, thread_update_params.ThreadUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -278,8 +250,8 @@ class AsyncThreadsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[CreateMessageRequestParam] | Omit = omit,
-        metadata: Optional[MetadataParam] | Omit = omit,
+        messages: Iterable[object] | Omit = omit,
+        metadata: object | Omit = omit,
         tool_resources: Optional[thread_create_params.ToolResources] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -294,13 +266,6 @@ class AsyncThreadsResource(AsyncAPIResource):
         Args:
           messages: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to
               start the thread with.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
-              for storing additional information about the object in a structured format, and
-              querying for objects via API or the dashboard.
-
-              Keys are strings with a maximum length of 64 characters. Values are strings with
-              a maximum length of 512 characters.
 
           tool_resources: A set of resources that are made available to the assistant's tools in this
               thread. The resources are specific to the type of tool. For example, the
@@ -368,8 +333,7 @@ class AsyncThreadsResource(AsyncAPIResource):
         self,
         thread_id: str,
         *,
-        metadata: Optional[MetadataParam] | Omit = omit,
-        tool_resources: Optional[thread_update_params.ToolResources] | Omit = omit,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -381,18 +345,6 @@ class AsyncThreadsResource(AsyncAPIResource):
         Modifies a thread.
 
         Args:
-          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
-              for storing additional information about the object in a structured format, and
-              querying for objects via API or the dashboard.
-
-              Keys are strings with a maximum length of 64 characters. Values are strings with
-              a maximum length of 512 characters.
-
-          tool_resources: A set of resources that are made available to the assistant's tools in this
-              thread. The resources are specific to the type of tool. For example, the
-              `code_interpreter` tool requires a list of file IDs, while the `file_search`
-              tool requires a list of vector store IDs.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -405,13 +357,7 @@ class AsyncThreadsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         return await self._post(
             f"/threads/{thread_id}",
-            body=await async_maybe_transform(
-                {
-                    "metadata": metadata,
-                    "tool_resources": tool_resources,
-                },
-                thread_update_params.ThreadUpdateParams,
-            ),
+            body=await async_maybe_transform(body, thread_update_params.ThreadUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

@@ -21,20 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import (
-    audio,
-    files,
-    images,
-    models,
-    videos,
-    batches,
-    uploads,
-    responses,
-    assistants,
-    embeddings,
-    completions,
-    moderations,
-)
+from .resources import responses
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import AgentlinError, APIStatusError
 from ._base_client import (
@@ -42,16 +29,9 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.chat import chat
-from .resources.evals import evals
 from .resources.chatkit import chatkit
 from .resources.threads import threads
-from .resources.realtime import realtime
-from .resources.containers import containers
-from .resources.fine_tuning import fine_tuning
-from .resources.organization import organization
 from .resources.conversations import conversations
-from .resources.vector_stores import vector_stores
 
 __all__ = [
     "Timeout",
@@ -66,27 +46,9 @@ __all__ = [
 
 
 class Agentlin(SyncAPIClient):
-    assistants: assistants.AssistantsResource
-    audio: audio.AudioResource
-    batches: batches.BatchesResource
-    chat: chat.ChatResource
-    completions: completions.CompletionsResource
-    containers: containers.ContainersResource
     conversations: conversations.ConversationsResource
-    embeddings: embeddings.EmbeddingsResource
-    evals: evals.EvalsResource
-    files: files.FilesResource
-    fine_tuning: fine_tuning.FineTuningResource
-    images: images.ImagesResource
-    models: models.ModelsResource
-    moderations: moderations.ModerationsResource
-    organization: organization.OrganizationResource
-    realtime: realtime.RealtimeResource
     responses: responses.ResponsesResource
     threads: threads.ThreadsResource
-    uploads: uploads.UploadsResource
-    vector_stores: vector_stores.VectorStoresResource
-    videos: videos.VideosResource
     chatkit: chatkit.ChatkitResource
     with_raw_response: AgentlinWithRawResponse
     with_streaming_response: AgentlinWithStreamedResponse
@@ -145,27 +107,9 @@ class Agentlin(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.assistants = assistants.AssistantsResource(self)
-        self.audio = audio.AudioResource(self)
-        self.batches = batches.BatchesResource(self)
-        self.chat = chat.ChatResource(self)
-        self.completions = completions.CompletionsResource(self)
-        self.containers = containers.ContainersResource(self)
         self.conversations = conversations.ConversationsResource(self)
-        self.embeddings = embeddings.EmbeddingsResource(self)
-        self.evals = evals.EvalsResource(self)
-        self.files = files.FilesResource(self)
-        self.fine_tuning = fine_tuning.FineTuningResource(self)
-        self.images = images.ImagesResource(self)
-        self.models = models.ModelsResource(self)
-        self.moderations = moderations.ModerationsResource(self)
-        self.organization = organization.OrganizationResource(self)
-        self.realtime = realtime.RealtimeResource(self)
         self.responses = responses.ResponsesResource(self)
         self.threads = threads.ThreadsResource(self)
-        self.uploads = uploads.UploadsResource(self)
-        self.vector_stores = vector_stores.VectorStoresResource(self)
-        self.videos = videos.VideosResource(self)
         self.chatkit = chatkit.ChatkitResource(self)
         self.with_raw_response = AgentlinWithRawResponse(self)
         self.with_streaming_response = AgentlinWithStreamedResponse(self)
@@ -173,7 +117,7 @@ class Agentlin(SyncAPIClient):
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -276,27 +220,9 @@ class Agentlin(SyncAPIClient):
 
 
 class AsyncAgentlin(AsyncAPIClient):
-    assistants: assistants.AsyncAssistantsResource
-    audio: audio.AsyncAudioResource
-    batches: batches.AsyncBatchesResource
-    chat: chat.AsyncChatResource
-    completions: completions.AsyncCompletionsResource
-    containers: containers.AsyncContainersResource
     conversations: conversations.AsyncConversationsResource
-    embeddings: embeddings.AsyncEmbeddingsResource
-    evals: evals.AsyncEvalsResource
-    files: files.AsyncFilesResource
-    fine_tuning: fine_tuning.AsyncFineTuningResource
-    images: images.AsyncImagesResource
-    models: models.AsyncModelsResource
-    moderations: moderations.AsyncModerationsResource
-    organization: organization.AsyncOrganizationResource
-    realtime: realtime.AsyncRealtimeResource
     responses: responses.AsyncResponsesResource
     threads: threads.AsyncThreadsResource
-    uploads: uploads.AsyncUploadsResource
-    vector_stores: vector_stores.AsyncVectorStoresResource
-    videos: videos.AsyncVideosResource
     chatkit: chatkit.AsyncChatkitResource
     with_raw_response: AsyncAgentlinWithRawResponse
     with_streaming_response: AsyncAgentlinWithStreamedResponse
@@ -355,27 +281,9 @@ class AsyncAgentlin(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.assistants = assistants.AsyncAssistantsResource(self)
-        self.audio = audio.AsyncAudioResource(self)
-        self.batches = batches.AsyncBatchesResource(self)
-        self.chat = chat.AsyncChatResource(self)
-        self.completions = completions.AsyncCompletionsResource(self)
-        self.containers = containers.AsyncContainersResource(self)
         self.conversations = conversations.AsyncConversationsResource(self)
-        self.embeddings = embeddings.AsyncEmbeddingsResource(self)
-        self.evals = evals.AsyncEvalsResource(self)
-        self.files = files.AsyncFilesResource(self)
-        self.fine_tuning = fine_tuning.AsyncFineTuningResource(self)
-        self.images = images.AsyncImagesResource(self)
-        self.models = models.AsyncModelsResource(self)
-        self.moderations = moderations.AsyncModerationsResource(self)
-        self.organization = organization.AsyncOrganizationResource(self)
-        self.realtime = realtime.AsyncRealtimeResource(self)
         self.responses = responses.AsyncResponsesResource(self)
         self.threads = threads.AsyncThreadsResource(self)
-        self.uploads = uploads.AsyncUploadsResource(self)
-        self.vector_stores = vector_stores.AsyncVectorStoresResource(self)
-        self.videos = videos.AsyncVideosResource(self)
         self.chatkit = chatkit.AsyncChatkitResource(self)
         self.with_raw_response = AsyncAgentlinWithRawResponse(self)
         self.with_streaming_response = AsyncAgentlinWithStreamedResponse(self)
@@ -383,7 +291,7 @@ class AsyncAgentlin(AsyncAPIClient):
     @property
     @override
     def qs(self) -> Querystring:
-        return Querystring(array_format="comma")
+        return Querystring(array_format="brackets")
 
     @property
     @override
@@ -487,105 +395,33 @@ class AsyncAgentlin(AsyncAPIClient):
 
 class AgentlinWithRawResponse:
     def __init__(self, client: Agentlin) -> None:
-        self.assistants = assistants.AssistantsResourceWithRawResponse(client.assistants)
-        self.audio = audio.AudioResourceWithRawResponse(client.audio)
-        self.batches = batches.BatchesResourceWithRawResponse(client.batches)
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithRawResponse(client.completions)
-        self.containers = containers.ContainersResourceWithRawResponse(client.containers)
         self.conversations = conversations.ConversationsResourceWithRawResponse(client.conversations)
-        self.embeddings = embeddings.EmbeddingsResourceWithRawResponse(client.embeddings)
-        self.evals = evals.EvalsResourceWithRawResponse(client.evals)
-        self.files = files.FilesResourceWithRawResponse(client.files)
-        self.fine_tuning = fine_tuning.FineTuningResourceWithRawResponse(client.fine_tuning)
-        self.images = images.ImagesResourceWithRawResponse(client.images)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
-        self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
-        self.organization = organization.OrganizationResourceWithRawResponse(client.organization)
-        self.realtime = realtime.RealtimeResourceWithRawResponse(client.realtime)
         self.responses = responses.ResponsesResourceWithRawResponse(client.responses)
         self.threads = threads.ThreadsResourceWithRawResponse(client.threads)
-        self.uploads = uploads.UploadsResourceWithRawResponse(client.uploads)
-        self.vector_stores = vector_stores.VectorStoresResourceWithRawResponse(client.vector_stores)
-        self.videos = videos.VideosResourceWithRawResponse(client.videos)
         self.chatkit = chatkit.ChatkitResourceWithRawResponse(client.chatkit)
 
 
 class AsyncAgentlinWithRawResponse:
     def __init__(self, client: AsyncAgentlin) -> None:
-        self.assistants = assistants.AsyncAssistantsResourceWithRawResponse(client.assistants)
-        self.audio = audio.AsyncAudioResourceWithRawResponse(client.audio)
-        self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithRawResponse(client.completions)
-        self.containers = containers.AsyncContainersResourceWithRawResponse(client.containers)
         self.conversations = conversations.AsyncConversationsResourceWithRawResponse(client.conversations)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithRawResponse(client.embeddings)
-        self.evals = evals.AsyncEvalsResourceWithRawResponse(client.evals)
-        self.files = files.AsyncFilesResourceWithRawResponse(client.files)
-        self.fine_tuning = fine_tuning.AsyncFineTuningResourceWithRawResponse(client.fine_tuning)
-        self.images = images.AsyncImagesResourceWithRawResponse(client.images)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
-        self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
-        self.organization = organization.AsyncOrganizationResourceWithRawResponse(client.organization)
-        self.realtime = realtime.AsyncRealtimeResourceWithRawResponse(client.realtime)
         self.responses = responses.AsyncResponsesResourceWithRawResponse(client.responses)
         self.threads = threads.AsyncThreadsResourceWithRawResponse(client.threads)
-        self.uploads = uploads.AsyncUploadsResourceWithRawResponse(client.uploads)
-        self.vector_stores = vector_stores.AsyncVectorStoresResourceWithRawResponse(client.vector_stores)
-        self.videos = videos.AsyncVideosResourceWithRawResponse(client.videos)
         self.chatkit = chatkit.AsyncChatkitResourceWithRawResponse(client.chatkit)
 
 
 class AgentlinWithStreamedResponse:
     def __init__(self, client: Agentlin) -> None:
-        self.assistants = assistants.AssistantsResourceWithStreamingResponse(client.assistants)
-        self.audio = audio.AudioResourceWithStreamingResponse(client.audio)
-        self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithStreamingResponse(client.completions)
-        self.containers = containers.ContainersResourceWithStreamingResponse(client.containers)
         self.conversations = conversations.ConversationsResourceWithStreamingResponse(client.conversations)
-        self.embeddings = embeddings.EmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.evals = evals.EvalsResourceWithStreamingResponse(client.evals)
-        self.files = files.FilesResourceWithStreamingResponse(client.files)
-        self.fine_tuning = fine_tuning.FineTuningResourceWithStreamingResponse(client.fine_tuning)
-        self.images = images.ImagesResourceWithStreamingResponse(client.images)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
-        self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
-        self.organization = organization.OrganizationResourceWithStreamingResponse(client.organization)
-        self.realtime = realtime.RealtimeResourceWithStreamingResponse(client.realtime)
         self.responses = responses.ResponsesResourceWithStreamingResponse(client.responses)
         self.threads = threads.ThreadsResourceWithStreamingResponse(client.threads)
-        self.uploads = uploads.UploadsResourceWithStreamingResponse(client.uploads)
-        self.vector_stores = vector_stores.VectorStoresResourceWithStreamingResponse(client.vector_stores)
-        self.videos = videos.VideosResourceWithStreamingResponse(client.videos)
         self.chatkit = chatkit.ChatkitResourceWithStreamingResponse(client.chatkit)
 
 
 class AsyncAgentlinWithStreamedResponse:
     def __init__(self, client: AsyncAgentlin) -> None:
-        self.assistants = assistants.AsyncAssistantsResourceWithStreamingResponse(client.assistants)
-        self.audio = audio.AsyncAudioResourceWithStreamingResponse(client.audio)
-        self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithStreamingResponse(client.completions)
-        self.containers = containers.AsyncContainersResourceWithStreamingResponse(client.containers)
         self.conversations = conversations.AsyncConversationsResourceWithStreamingResponse(client.conversations)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.evals = evals.AsyncEvalsResourceWithStreamingResponse(client.evals)
-        self.files = files.AsyncFilesResourceWithStreamingResponse(client.files)
-        self.fine_tuning = fine_tuning.AsyncFineTuningResourceWithStreamingResponse(client.fine_tuning)
-        self.images = images.AsyncImagesResourceWithStreamingResponse(client.images)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
-        self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
-        self.organization = organization.AsyncOrganizationResourceWithStreamingResponse(client.organization)
-        self.realtime = realtime.AsyncRealtimeResourceWithStreamingResponse(client.realtime)
         self.responses = responses.AsyncResponsesResourceWithStreamingResponse(client.responses)
         self.threads = threads.AsyncThreadsResourceWithStreamingResponse(client.threads)
-        self.uploads = uploads.AsyncUploadsResourceWithStreamingResponse(client.uploads)
-        self.vector_stores = vector_stores.AsyncVectorStoresResourceWithStreamingResponse(client.vector_stores)
-        self.videos = videos.AsyncVideosResourceWithStreamingResponse(client.videos)
         self.chatkit = chatkit.AsyncChatkitResourceWithStreamingResponse(client.chatkit)
 
 
