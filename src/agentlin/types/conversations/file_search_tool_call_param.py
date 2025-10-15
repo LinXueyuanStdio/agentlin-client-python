@@ -11,8 +11,6 @@ __all__ = ["FileSearchToolCallParam", "Result"]
 
 
 class Result(TypedDict, total=False):
-    attributes: object
-
     file_id: str
     """The unique ID of the file."""
 

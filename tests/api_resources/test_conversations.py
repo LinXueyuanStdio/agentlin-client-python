@@ -9,6 +9,7 @@ import pytest
 
 from agentlin import Agentlin, AsyncAgentlin
 from tests.utils import assert_matches_type
+from agentlin.types import ConversationDeleteResponse
 from agentlin.types.conversations import ConversationResource
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -27,7 +28,14 @@ class TestConversations:
     @parametrize
     def test_method_create_with_all_params(self, client: Agentlin) -> None:
         conversation = client.conversations.create(
-            body={},
+            items=[
+                {
+                    "content": "string",
+                    "role": "user",
+                    "type": "message",
+                }
+            ],
+            metadata={"foo": "string"},
         )
         assert_matches_type(ConversationResource, conversation, path=["response"])
 
@@ -100,15 +108,7 @@ class TestConversations:
     def test_method_update(self, client: Agentlin) -> None:
         conversation = client.conversations.update(
             conversation_id="conv_123",
-        )
-        assert_matches_type(ConversationResource, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Agentlin) -> None:
-        conversation = client.conversations.update(
-            conversation_id="conv_123",
-            body={},
+            metadata={"foo": "string"},
         )
         assert_matches_type(ConversationResource, conversation, path=["response"])
 
@@ -117,6 +117,7 @@ class TestConversations:
     def test_raw_response_update(self, client: Agentlin) -> None:
         response = client.conversations.with_raw_response.update(
             conversation_id="conv_123",
+            metadata={"foo": "string"},
         )
 
         assert response.is_closed is True
@@ -129,6 +130,7 @@ class TestConversations:
     def test_streaming_response_update(self, client: Agentlin) -> None:
         with client.conversations.with_streaming_response.update(
             conversation_id="conv_123",
+            metadata={"foo": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -144,6 +146,7 @@ class TestConversations:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.update(
                 conversation_id="",
+                metadata={"foo": "string"},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -152,7 +155,7 @@ class TestConversations:
         conversation = client.conversations.delete(
             "conv_123",
         )
-        assert_matches_type(object, conversation, path=["response"])
+        assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -164,7 +167,7 @@ class TestConversations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         conversation = response.parse()
-        assert_matches_type(object, conversation, path=["response"])
+        assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -176,7 +179,7 @@ class TestConversations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             conversation = response.parse()
-            assert_matches_type(object, conversation, path=["response"])
+            assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -204,7 +207,14 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
         conversation = await async_client.conversations.create(
-            body={},
+            items=[
+                {
+                    "content": "string",
+                    "role": "user",
+                    "type": "message",
+                }
+            ],
+            metadata={"foo": "string"},
         )
         assert_matches_type(ConversationResource, conversation, path=["response"])
 
@@ -277,15 +287,7 @@ class TestAsyncConversations:
     async def test_method_update(self, async_client: AsyncAgentlin) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="conv_123",
-        )
-        assert_matches_type(ConversationResource, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        conversation = await async_client.conversations.update(
-            conversation_id="conv_123",
-            body={},
+            metadata={"foo": "string"},
         )
         assert_matches_type(ConversationResource, conversation, path=["response"])
 
@@ -294,6 +296,7 @@ class TestAsyncConversations:
     async def test_raw_response_update(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.conversations.with_raw_response.update(
             conversation_id="conv_123",
+            metadata={"foo": "string"},
         )
 
         assert response.is_closed is True
@@ -306,6 +309,7 @@ class TestAsyncConversations:
     async def test_streaming_response_update(self, async_client: AsyncAgentlin) -> None:
         async with async_client.conversations.with_streaming_response.update(
             conversation_id="conv_123",
+            metadata={"foo": "string"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -321,6 +325,7 @@ class TestAsyncConversations:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.update(
                 conversation_id="",
+                metadata={"foo": "string"},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -329,7 +334,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.delete(
             "conv_123",
         )
-        assert_matches_type(object, conversation, path=["response"])
+        assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -341,7 +346,7 @@ class TestAsyncConversations:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         conversation = await response.parse()
-        assert_matches_type(object, conversation, path=["response"])
+        assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -353,7 +358,7 @@ class TestAsyncConversations:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             conversation = await response.parse()
-            assert_matches_type(object, conversation, path=["response"])
+            assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

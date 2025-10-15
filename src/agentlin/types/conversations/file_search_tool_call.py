@@ -9,8 +9,6 @@ __all__ = ["FileSearchToolCall", "Result"]
 
 
 class Result(BaseModel):
-    attributes: Optional[object] = None
-
     file_id: Optional[str] = None
     """The unique ID of the file."""
 

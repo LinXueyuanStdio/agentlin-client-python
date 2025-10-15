@@ -4,12 +4,12 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ThreadDeleteResponse"]
+__all__ = ["ConversationDeleteResponse"]
 
 
-class ThreadDeleteResponse(BaseModel):
+class ConversationDeleteResponse(BaseModel):
     id: str
 
     deleted: bool
 
-    object: Literal["thread.deleted"]
+    object: Literal["conversation.deleted"]

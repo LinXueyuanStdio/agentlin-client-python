@@ -29,8 +29,6 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.chatkit import chatkit
-from .resources.threads import threads
 from .resources.conversations import conversations
 
 __all__ = [
@@ -48,8 +46,6 @@ __all__ = [
 class Agentlin(SyncAPIClient):
     conversations: conversations.ConversationsResource
     responses: responses.ResponsesResource
-    threads: threads.ThreadsResource
-    chatkit: chatkit.ChatkitResource
     with_raw_response: AgentlinWithRawResponse
     with_streaming_response: AgentlinWithStreamedResponse
 
@@ -109,8 +105,6 @@ class Agentlin(SyncAPIClient):
 
         self.conversations = conversations.ConversationsResource(self)
         self.responses = responses.ResponsesResource(self)
-        self.threads = threads.ThreadsResource(self)
-        self.chatkit = chatkit.ChatkitResource(self)
         self.with_raw_response = AgentlinWithRawResponse(self)
         self.with_streaming_response = AgentlinWithStreamedResponse(self)
 
@@ -222,8 +216,6 @@ class Agentlin(SyncAPIClient):
 class AsyncAgentlin(AsyncAPIClient):
     conversations: conversations.AsyncConversationsResource
     responses: responses.AsyncResponsesResource
-    threads: threads.AsyncThreadsResource
-    chatkit: chatkit.AsyncChatkitResource
     with_raw_response: AsyncAgentlinWithRawResponse
     with_streaming_response: AsyncAgentlinWithStreamedResponse
 
@@ -283,8 +275,6 @@ class AsyncAgentlin(AsyncAPIClient):
 
         self.conversations = conversations.AsyncConversationsResource(self)
         self.responses = responses.AsyncResponsesResource(self)
-        self.threads = threads.AsyncThreadsResource(self)
-        self.chatkit = chatkit.AsyncChatkitResource(self)
         self.with_raw_response = AsyncAgentlinWithRawResponse(self)
         self.with_streaming_response = AsyncAgentlinWithStreamedResponse(self)
 
@@ -397,32 +387,24 @@ class AgentlinWithRawResponse:
     def __init__(self, client: Agentlin) -> None:
         self.conversations = conversations.ConversationsResourceWithRawResponse(client.conversations)
         self.responses = responses.ResponsesResourceWithRawResponse(client.responses)
-        self.threads = threads.ThreadsResourceWithRawResponse(client.threads)
-        self.chatkit = chatkit.ChatkitResourceWithRawResponse(client.chatkit)
 
 
 class AsyncAgentlinWithRawResponse:
     def __init__(self, client: AsyncAgentlin) -> None:
         self.conversations = conversations.AsyncConversationsResourceWithRawResponse(client.conversations)
         self.responses = responses.AsyncResponsesResourceWithRawResponse(client.responses)
-        self.threads = threads.AsyncThreadsResourceWithRawResponse(client.threads)
-        self.chatkit = chatkit.AsyncChatkitResourceWithRawResponse(client.chatkit)
 
 
 class AgentlinWithStreamedResponse:
     def __init__(self, client: Agentlin) -> None:
         self.conversations = conversations.ConversationsResourceWithStreamingResponse(client.conversations)
         self.responses = responses.ResponsesResourceWithStreamingResponse(client.responses)
-        self.threads = threads.ThreadsResourceWithStreamingResponse(client.threads)
-        self.chatkit = chatkit.ChatkitResourceWithStreamingResponse(client.chatkit)
 
 
 class AsyncAgentlinWithStreamedResponse:
     def __init__(self, client: AsyncAgentlin) -> None:
         self.conversations = conversations.AsyncConversationsResourceWithStreamingResponse(client.conversations)
         self.responses = responses.AsyncResponsesResourceWithStreamingResponse(client.responses)
-        self.threads = threads.AsyncThreadsResourceWithStreamingResponse(client.threads)
-        self.chatkit = chatkit.AsyncChatkitResourceWithStreamingResponse(client.chatkit)
 
 
 Client = Agentlin

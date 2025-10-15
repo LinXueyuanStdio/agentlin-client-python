@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Dict, Iterable, Optional
+
 import httpx
 
 from .items import (
@@ -24,6 +26,8 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.conversation_delete_response import ConversationDeleteResponse
+from ...types.conversations.input_item_param import InputItemParam
 from ...types.conversations.conversation_resource import ConversationResource
 
 __all__ = ["ConversationsResource", "AsyncConversationsResource"]
@@ -56,7 +60,8 @@ class ConversationsResource(SyncAPIResource):
     def create(
         self,
         *,
-        body: object | Omit = omit,
+        items: Optional[Iterable[InputItemParam]] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,6 +73,16 @@ class ConversationsResource(SyncAPIResource):
         Create a conversation.
 
         Args:
+          items: Initial items to include in the conversation context. You may add up to 20 items
+              at a time.
+
+          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard.
+
+              Keys are strings with a maximum length of 64 characters. Values are strings with
+              a maximum length of 512 characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -78,7 +93,13 @@ class ConversationsResource(SyncAPIResource):
         """
         return self._post(
             "/conversations",
-            body=maybe_transform(body, conversation_create_params.ConversationCreateParams),
+            body=maybe_transform(
+                {
+                    "items": items,
+                    "metadata": metadata,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -122,7 +143,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
-        body: object | Omit = omit,
+        metadata: Optional[Dict[str, str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,6 +155,13 @@ class ConversationsResource(SyncAPIResource):
         Update a conversation
 
         Args:
+          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard.
+
+              Keys are strings with a maximum length of 64 characters. Values are strings with
+              a maximum length of 512 characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -146,7 +174,7 @@ class ConversationsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
             f"/conversations/{conversation_id}",
-            body=maybe_transform(body, conversation_update_params.ConversationUpdateParams),
+            body=maybe_transform({"metadata": metadata}, conversation_update_params.ConversationUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -163,7 +191,7 @@ class ConversationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> ConversationDeleteResponse:
         """Delete a conversation.
 
         Items in the conversation will not be deleted.
@@ -184,7 +212,7 @@ class ConversationsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=ConversationDeleteResponse,
         )
 
 
@@ -215,7 +243,8 @@ class AsyncConversationsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        body: object | Omit = omit,
+        items: Optional[Iterable[InputItemParam]] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -227,6 +256,16 @@ class AsyncConversationsResource(AsyncAPIResource):
         Create a conversation.
 
         Args:
+          items: Initial items to include in the conversation context. You may add up to 20 items
+              at a time.
+
+          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard.
+
+              Keys are strings with a maximum length of 64 characters. Values are strings with
+              a maximum length of 512 characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -237,7 +276,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         return await self._post(
             "/conversations",
-            body=await async_maybe_transform(body, conversation_create_params.ConversationCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "items": items,
+                    "metadata": metadata,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -281,7 +326,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
-        body: object | Omit = omit,
+        metadata: Optional[Dict[str, str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,6 +338,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         Update a conversation
 
         Args:
+          metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard.
+
+              Keys are strings with a maximum length of 64 characters. Values are strings with
+              a maximum length of 512 characters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -305,7 +357,9 @@ class AsyncConversationsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
             f"/conversations/{conversation_id}",
-            body=await async_maybe_transform(body, conversation_update_params.ConversationUpdateParams),
+            body=await async_maybe_transform(
+                {"metadata": metadata}, conversation_update_params.ConversationUpdateParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -322,7 +376,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> ConversationDeleteResponse:
         """Delete a conversation.
 
         Items in the conversation will not be deleted.
@@ -343,7 +397,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=ConversationDeleteResponse,
         )
 
 
