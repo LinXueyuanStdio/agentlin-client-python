@@ -73,6 +73,7 @@ Types:
 
 ```python
 from agentlin.types import (
+    McpToolFilter,
     ModelResponsePropertiesStandard,
     Response,
     ResponseProperties,

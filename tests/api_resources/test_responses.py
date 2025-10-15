@@ -62,11 +62,11 @@ class TestResponses:
                 "format": {"type": "text"},
                 "verbosity": "low",
             },
-            tool_choice="none",
+            tool_choice={"type": "none"},
             tools=[
                 {
                     "name": "name",
-                    "parameters": {"foo": "bar"},
+                    "parameters": {},
                     "strict": True,
                     "type": "function",
                     "description": "description",
@@ -341,11 +341,11 @@ class TestAsyncResponses:
                 "format": {"type": "text"},
                 "verbosity": "low",
             },
-            tool_choice="none",
+            tool_choice={"type": "none"},
             tools=[
                 {
                     "name": "name",
-                    "parameters": {"foo": "bar"},
+                    "parameters": {},
                     "strict": True,
                     "type": "function",
                     "description": "description",

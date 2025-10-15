@@ -23,11 +23,12 @@ __all__ = [
     "StreamOptions",
     "Text",
     "ToolChoice",
-    "ToolChoiceToolChoiceAllowed",
+    "ToolChoiceToolChoiceOptions",
+    "ToolChoiceAllowedTools",
     "ToolChoiceToolChoiceTypes",
-    "ToolChoiceToolChoiceFunction",
-    "ToolChoiceToolChoiceMcp",
-    "ToolChoiceToolChoiceCustom",
+    "ToolChoiceFunction",
+    "ToolChoiceMcp",
+    "ToolChoiceCustom",
 ]
 
 
@@ -386,7 +387,26 @@ class Text(TypedDict, total=False):
     """
 
 
-class ToolChoiceToolChoiceAllowed(TypedDict, total=False):
+class ToolChoiceToolChoiceOptions(TypedDict, total=False):
+    type: Required[Literal["none", "auto", "required"]]
+    """Controls which (if any) tool is called by the model.
+
+    `none` means the model will not call any tool and instead generates a message.
+
+    `auto` means the model can pick between generating a message or calling one or
+    more tools.
+
+    `required` means the model must call one or more tools.
+
+    Allowed values are:
+
+    - `none`
+    - `auto`
+    - `required`
+    """
+
+
+class ToolChoiceAllowedTools(TypedDict, total=False):
     mode: Required[Literal["auto", "required"]]
     """Constrains the tools available to the model to a pre-defined set.
 
@@ -440,7 +460,7 @@ class ToolChoiceToolChoiceTypes(TypedDict, total=False):
     """
 
 
-class ToolChoiceToolChoiceFunction(TypedDict, total=False):
+class ToolChoiceFunction(TypedDict, total=False):
     name: Required[str]
     """The name of the function to call."""
 
@@ -448,7 +468,7 @@ class ToolChoiceToolChoiceFunction(TypedDict, total=False):
     """For function calling, the type is always `function`."""
 
 
-class ToolChoiceToolChoiceMcp(TypedDict, total=False):
+class ToolChoiceMcp(TypedDict, total=False):
     server_label: Required[str]
     """The label of the MCP server to use."""
 
@@ -459,7 +479,7 @@ class ToolChoiceToolChoiceMcp(TypedDict, total=False):
     """The name of the tool to call on the server."""
 
 
-class ToolChoiceToolChoiceCustom(TypedDict, total=False):
+class ToolChoiceCustom(TypedDict, total=False):
     name: Required[str]
     """The name of the custom tool to call."""
 
@@ -468,10 +488,10 @@ class ToolChoiceToolChoiceCustom(TypedDict, total=False):
 
 
 ToolChoice: TypeAlias = Union[
-    Literal["none", "auto", "required"],
-    ToolChoiceToolChoiceAllowed,
+    ToolChoiceToolChoiceOptions,
+    ToolChoiceAllowedTools,
     ToolChoiceToolChoiceTypes,
-    ToolChoiceToolChoiceFunction,
-    ToolChoiceToolChoiceMcp,
-    ToolChoiceToolChoiceCustom,
+    ToolChoiceFunction,
+    ToolChoiceMcp,
+    ToolChoiceCustom,
 ]

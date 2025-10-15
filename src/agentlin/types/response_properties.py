@@ -1,8 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 from .response_tool import ResponseTool
 from .conversations.input_file_content import InputFileContent
@@ -17,11 +18,12 @@ __all__ = [
     "Reasoning",
     "Text",
     "ToolChoice",
-    "ToolChoiceToolChoiceAllowed",
+    "ToolChoiceToolChoiceOptions",
+    "ToolChoiceAllowedTools",
     "ToolChoiceToolChoiceTypes",
-    "ToolChoiceToolChoiceFunction",
-    "ToolChoiceToolChoiceMcp",
-    "ToolChoiceToolChoiceCustom",
+    "ToolChoiceFunction",
+    "ToolChoiceMcp",
+    "ToolChoiceCustom",
 ]
 
 PromptVariables: TypeAlias = Union[str, InputTextContent, InputImageContent, InputFileContent]
@@ -97,7 +99,26 @@ class Text(BaseModel):
     """
 
 
-class ToolChoiceToolChoiceAllowed(BaseModel):
+class ToolChoiceToolChoiceOptions(BaseModel):
+    type: Literal["none", "auto", "required"]
+    """Controls which (if any) tool is called by the model.
+
+    `none` means the model will not call any tool and instead generates a message.
+
+    `auto` means the model can pick between generating a message or calling one or
+    more tools.
+
+    `required` means the model must call one or more tools.
+
+    Allowed values are:
+
+    - `none`
+    - `auto`
+    - `required`
+    """
+
+
+class ToolChoiceAllowedTools(BaseModel):
     mode: Literal["auto", "required"]
     """Constrains the tools available to the model to a pre-defined set.
 
@@ -149,7 +170,7 @@ class ToolChoiceToolChoiceTypes(BaseModel):
     """
 
 
-class ToolChoiceToolChoiceFunction(BaseModel):
+class ToolChoiceFunction(BaseModel):
     name: str
     """The name of the function to call."""
 
@@ -157,7 +178,7 @@ class ToolChoiceToolChoiceFunction(BaseModel):
     """For function calling, the type is always `function`."""
 
 
-class ToolChoiceToolChoiceMcp(BaseModel):
+class ToolChoiceMcp(BaseModel):
     server_label: str
     """The label of the MCP server to use."""
 
@@ -168,7 +189,7 @@ class ToolChoiceToolChoiceMcp(BaseModel):
     """The name of the tool to call on the server."""
 
 
-class ToolChoiceToolChoiceCustom(BaseModel):
+class ToolChoiceCustom(BaseModel):
     name: str
     """The name of the custom tool to call."""
 
@@ -176,13 +197,16 @@ class ToolChoiceToolChoiceCustom(BaseModel):
     """For custom tool calling, the type is always `custom`."""
 
 
-ToolChoice: TypeAlias = Union[
-    Literal["none", "auto", "required"],
-    ToolChoiceToolChoiceAllowed,
-    ToolChoiceToolChoiceTypes,
-    ToolChoiceToolChoiceFunction,
-    ToolChoiceToolChoiceMcp,
-    ToolChoiceToolChoiceCustom,
+ToolChoice: TypeAlias = Annotated[
+    Union[
+        ToolChoiceToolChoiceOptions,
+        ToolChoiceAllowedTools,
+        ToolChoiceToolChoiceTypes,
+        ToolChoiceFunction,
+        ToolChoiceMcp,
+        ToolChoiceCustom,
+    ],
+    PropertyInfo(discriminator="type"),
 ]
 
 
