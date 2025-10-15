@@ -77,6 +77,7 @@ from agentlin.types import (
     Response,
     ResponseProperties,
     ResponseTool,
+    TextResponseFormatConfiguration,
     ResponseListInputItemsResponse,
 )
 ```

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
@@ -11,6 +11,12 @@ __all__ = [
     "ResponseToolParam",
     "Function",
     "FileSearch",
+    "FileSearchFilters",
+    "FileSearchFiltersComparisonFilter",
+    "FileSearchFiltersCompoundFilter",
+    "FileSearchFiltersCompoundFilterFilter",
+    "FileSearchFiltersCompoundFilterFilterComparisonFilter",
+    "FileSearchRankingOptions",
     "ComputerUsePreview",
     "WebSearchTool",
     "WebSearchToolFilters",
@@ -57,6 +63,87 @@ class Function(TypedDict, total=False):
     """
 
 
+class FileSearchFiltersComparisonFilter(TypedDict, total=False):
+    key: Required[str]
+    """The key to compare against the value."""
+
+    type: Required[Literal["eq", "ne", "gt", "gte", "lt", "lte"]]
+    """
+    Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`,
+    `nin`.
+
+    - `eq`: equals
+    - `ne`: not equal
+    - `gt`: greater than
+    - `gte`: greater than or equal
+    - `lt`: less than
+    - `lte`: less than or equal
+    - `in`: in
+    - `nin`: not in
+    """
+
+    value: Required[Union[str, float, bool, SequenceNotStr[Union[str, float]]]]
+    """
+    The value to compare against the attribute key; supports string, number, or
+    boolean types.
+    """
+
+
+class FileSearchFiltersCompoundFilterFilterComparisonFilter(TypedDict, total=False):
+    key: Required[str]
+    """The key to compare against the value."""
+
+    type: Required[Literal["eq", "ne", "gt", "gte", "lt", "lte"]]
+    """
+    Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`,
+    `nin`.
+
+    - `eq`: equals
+    - `ne`: not equal
+    - `gt`: greater than
+    - `gte`: greater than or equal
+    - `lt`: less than
+    - `lte`: less than or equal
+    - `in`: in
+    - `nin`: not in
+    """
+
+    value: Required[Union[str, float, bool, SequenceNotStr[Union[str, float]]]]
+    """
+    The value to compare against the attribute key; supports string, number, or
+    boolean types.
+    """
+
+
+FileSearchFiltersCompoundFilterFilter: TypeAlias = Union[FileSearchFiltersCompoundFilterFilterComparisonFilter, object]
+
+
+class FileSearchFiltersCompoundFilter(TypedDict, total=False):
+    filters: Required[Iterable[FileSearchFiltersCompoundFilterFilter]]
+    """Array of filters to combine.
+
+    Items can be `ComparisonFilter` or `CompoundFilter`.
+    """
+
+    type: Required[Literal["and", "or"]]
+    """Type of operation: `and` or `or`."""
+
+
+FileSearchFilters: TypeAlias = Union[FileSearchFiltersComparisonFilter, FileSearchFiltersCompoundFilter]
+
+
+class FileSearchRankingOptions(TypedDict, total=False):
+    ranker: Literal["auto", "default-2024-11-15"]
+    """The ranker to use for the file search."""
+
+    score_threshold: float
+    """The score threshold for the file search, a number between 0 and 1.
+
+    Numbers closer to 1 will attempt to return only the most relevant results, but
+    may return fewer results.
+    """
+
+
 class FileSearch(TypedDict, total=False):
     type: Required[Literal["file_search"]]
     """The type of the file search tool. Always `file_search`."""
@@ -64,7 +151,7 @@ class FileSearch(TypedDict, total=False):
     vector_store_ids: Required[SequenceNotStr[str]]
     """The IDs of the vector stores to search."""
 
-    filters: object
+    filters: Optional[FileSearchFilters]
     """A filter to apply."""
 
     max_num_results: int
@@ -73,7 +160,7 @@ class FileSearch(TypedDict, total=False):
     This number should be between 1 and 50 inclusive.
     """
 
-    ranking_options: object
+    ranking_options: FileSearchRankingOptions
     """Ranking options for search."""
 
 

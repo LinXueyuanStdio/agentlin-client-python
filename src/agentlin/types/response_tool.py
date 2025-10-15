@@ -10,6 +10,12 @@ __all__ = [
     "ResponseTool",
     "Function",
     "FileSearch",
+    "FileSearchFilters",
+    "FileSearchFiltersComparisonFilter",
+    "FileSearchFiltersCompoundFilter",
+    "FileSearchFiltersCompoundFilterFilter",
+    "FileSearchFiltersCompoundFilterFilterComparisonFilter",
+    "FileSearchRankingOptions",
     "ComputerUsePreview",
     "WebSearchTool",
     "WebSearchToolFilters",
@@ -56,6 +62,87 @@ class Function(BaseModel):
     """
 
 
+class FileSearchFiltersComparisonFilter(BaseModel):
+    key: str
+    """The key to compare against the value."""
+
+    type: Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+    """
+    Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`,
+    `nin`.
+
+    - `eq`: equals
+    - `ne`: not equal
+    - `gt`: greater than
+    - `gte`: greater than or equal
+    - `lt`: less than
+    - `lte`: less than or equal
+    - `in`: in
+    - `nin`: not in
+    """
+
+    value: Union[str, float, bool, List[Union[str, float]]]
+    """
+    The value to compare against the attribute key; supports string, number, or
+    boolean types.
+    """
+
+
+class FileSearchFiltersCompoundFilterFilterComparisonFilter(BaseModel):
+    key: str
+    """The key to compare against the value."""
+
+    type: Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+    """
+    Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`,
+    `nin`.
+
+    - `eq`: equals
+    - `ne`: not equal
+    - `gt`: greater than
+    - `gte`: greater than or equal
+    - `lt`: less than
+    - `lte`: less than or equal
+    - `in`: in
+    - `nin`: not in
+    """
+
+    value: Union[str, float, bool, List[Union[str, float]]]
+    """
+    The value to compare against the attribute key; supports string, number, or
+    boolean types.
+    """
+
+
+FileSearchFiltersCompoundFilterFilter: TypeAlias = Union[FileSearchFiltersCompoundFilterFilterComparisonFilter, object]
+
+
+class FileSearchFiltersCompoundFilter(BaseModel):
+    filters: List[FileSearchFiltersCompoundFilterFilter]
+    """Array of filters to combine.
+
+    Items can be `ComparisonFilter` or `CompoundFilter`.
+    """
+
+    type: Literal["and", "or"]
+    """Type of operation: `and` or `or`."""
+
+
+FileSearchFilters: TypeAlias = Union[FileSearchFiltersComparisonFilter, FileSearchFiltersCompoundFilter, None]
+
+
+class FileSearchRankingOptions(BaseModel):
+    ranker: Optional[Literal["auto", "default-2024-11-15"]] = None
+    """The ranker to use for the file search."""
+
+    score_threshold: Optional[float] = None
+    """The score threshold for the file search, a number between 0 and 1.
+
+    Numbers closer to 1 will attempt to return only the most relevant results, but
+    may return fewer results.
+    """
+
+
 class FileSearch(BaseModel):
     type: Literal["file_search"]
     """The type of the file search tool. Always `file_search`."""
@@ -63,7 +150,7 @@ class FileSearch(BaseModel):
     vector_store_ids: List[str]
     """The IDs of the vector stores to search."""
 
-    filters: Optional[object] = None
+    filters: Optional[FileSearchFilters] = None
     """A filter to apply."""
 
     max_num_results: Optional[int] = None
@@ -72,7 +159,7 @@ class FileSearch(BaseModel):
     This number should be between 1 and 50 inclusive.
     """
 
-    ranking_options: Optional[object] = None
+    ranking_options: Optional[FileSearchRankingOptions] = None
     """Ranking options for search."""
 
 

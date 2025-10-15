@@ -38,10 +38,14 @@ class TestResponses:
             max_output_tokens=0,
             max_tool_calls=0,
             metadata={"foo": "string"},
-            model={},
+            model="o1-pro",
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
-            prompt={},
+            prompt={
+                "id": "id",
+                "variables": {"foo": "string"},
+                "version": "version",
+            },
             prompt_cache_key="prompt-cache-key-1234",
             reasoning={
                 "effort": "minimal",
@@ -55,7 +59,7 @@ class TestResponses:
             stream_options={"include_obfuscation": True},
             temperature=1,
             text={
-                "format": {},
+                "format": {"type": "text"},
                 "verbosity": "low",
             },
             tool_choice="none",
@@ -313,10 +317,14 @@ class TestAsyncResponses:
             max_output_tokens=0,
             max_tool_calls=0,
             metadata={"foo": "string"},
-            model={},
+            model="o1-pro",
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
-            prompt={},
+            prompt={
+                "id": "id",
+                "variables": {"foo": "string"},
+                "version": "version",
+            },
             prompt_cache_key="prompt-cache-key-1234",
             reasoning={
                 "effort": "minimal",
@@ -330,7 +338,7 @@ class TestAsyncResponses:
             stream_options={"include_obfuscation": True},
             temperature=1,
             text={
-                "format": {},
+                "format": {"type": "text"},
                 "verbosity": "low",
             },
             tool_choice="none",
