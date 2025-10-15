@@ -66,7 +66,7 @@ class TestResponses:
             tools=[
                 {
                     "name": "name",
-                    "parameters": {},
+                    "parameters": {"foo": "bar"},
                     "strict": True,
                     "type": "function",
                     "description": "description",
@@ -345,7 +345,7 @@ class TestAsyncResponses:
             tools=[
                 {
                     "name": "name",
-                    "parameters": {},
+                    "parameters": {"foo": "bar"},
                     "strict": True,
                     "type": "function",
                     "description": "description",
