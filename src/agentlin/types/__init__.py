@@ -3,18 +3,9 @@
 from __future__ import annotations
 
 from .response import Response as Response
-from .order_enum import OrderEnum as OrderEnum
-from .video_size import VideoSize as VideoSize
-from .video_model import VideoModel as VideoModel
 from .response_tool import ResponseTool as ResponseTool
 from .thread_object import ThreadObject as ThreadObject
-from .video_seconds import VideoSeconds as VideoSeconds
-from .partial_images import PartialImages as PartialImages
-from .reasoning_effort import ReasoningEffort as ReasoningEffort
-from .file_search_ranker import FileSearchRanker as FileSearchRanker
 from .response_properties import ResponseProperties as ResponseProperties
-from .image_input_fidelity import ImageInputFidelity as ImageInputFidelity
-from .noise_reduction_type import NoiseReductionType as NoiseReductionType
 from .thread_create_params import ThreadCreateParams as ThreadCreateParams
 from .thread_update_params import ThreadUpdateParams as ThreadUpdateParams
 from .response_create_params import ResponseCreateParams as ResponseCreateParams

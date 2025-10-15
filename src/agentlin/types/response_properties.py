@@ -5,11 +5,6 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .response_tool import ResponseTool
-from .chat.verbosity import Verbosity
-from .reasoning_effort import ReasoningEffort
-from .realtime.tool_choice_mcp import ToolChoiceMcp
-from .realtime.tool_choice_options import ToolChoiceOptions
-from .realtime.tool_choice_function import ToolChoiceFunction
 
 __all__ = [
     "ResponseProperties",
@@ -18,12 +13,14 @@ __all__ = [
     "ToolChoice",
     "ToolChoiceToolChoiceAllowed",
     "ToolChoiceToolChoiceTypes",
+    "ToolChoiceToolChoiceFunction",
+    "ToolChoiceToolChoiceMcp",
     "ToolChoiceToolChoiceCustom",
 ]
 
 
 class Reasoning(BaseModel):
-    effort: Optional[ReasoningEffort] = None
+    effort: Optional[Literal["minimal", "low", "medium", "high"]] = None
     """
     Constrains effort on reasoning for
     [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
@@ -54,7 +51,7 @@ class Reasoning(BaseModel):
 class Text(BaseModel):
     format: Optional[object] = None
 
-    verbosity: Optional[Verbosity] = None
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Constrains the verbosity of the model's response.
 
     Lower values will result in more concise responses, while higher values will
@@ -115,6 +112,25 @@ class ToolChoiceToolChoiceTypes(BaseModel):
     """
 
 
+class ToolChoiceToolChoiceFunction(BaseModel):
+    name: str
+    """The name of the function to call."""
+
+    type: Literal["function"]
+    """For function calling, the type is always `function`."""
+
+
+class ToolChoiceToolChoiceMcp(BaseModel):
+    server_label: str
+    """The label of the MCP server to use."""
+
+    type: Literal["mcp"]
+    """For MCP tools, the type is always `mcp`."""
+
+    name: Optional[str] = None
+    """The name of the tool to call on the server."""
+
+
 class ToolChoiceToolChoiceCustom(BaseModel):
     name: str
     """The name of the custom tool to call."""
@@ -124,11 +140,11 @@ class ToolChoiceToolChoiceCustom(BaseModel):
 
 
 ToolChoice: TypeAlias = Union[
-    ToolChoiceOptions,
+    Literal["none", "auto", "required"],
     ToolChoiceToolChoiceAllowed,
     ToolChoiceToolChoiceTypes,
-    ToolChoiceFunction,
-    ToolChoiceMcp,
+    ToolChoiceToolChoiceFunction,
+    ToolChoiceToolChoiceMcp,
     ToolChoiceToolChoiceCustom,
 ]
 
