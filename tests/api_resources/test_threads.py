@@ -27,20 +27,8 @@ class TestThreads:
     @parametrize
     def test_method_create_with_all_params(self, client: Agentlin) -> None:
         thread = client.threads.create(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                    "attachments": [
-                        {
-                            "file_id": "file_id",
-                            "tools": [{"type": "code_interpreter"}],
-                        }
-                    ],
-                    "metadata": {"foo": "string"},
-                }
-            ],
-            metadata={"foo": "string"},
+            messages=[{}],
+            metadata={},
             tool_resources={
                 "code_interpreter": {"file_ids": ["string"]},
                 "file_search": {
@@ -49,7 +37,7 @@ class TestThreads:
                         {
                             "chunking_strategy": {"type": "auto"},
                             "file_ids": ["string"],
-                            "metadata": {"foo": "string"},
+                            "metadata": {},
                         }
                     ],
                 },
@@ -126,19 +114,7 @@ class TestThreads:
     def test_method_update(self, client: Agentlin) -> None:
         thread = client.threads.update(
             thread_id="thread_id",
-        )
-        assert_matches_type(ThreadObject, thread, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Agentlin) -> None:
-        thread = client.threads.update(
-            thread_id="thread_id",
-            metadata={"foo": "string"},
-            tool_resources={
-                "code_interpreter": {"file_ids": ["string"]},
-                "file_search": {"vector_store_ids": ["string"]},
-            },
+            body={},
         )
         assert_matches_type(ThreadObject, thread, path=["response"])
 
@@ -147,6 +123,7 @@ class TestThreads:
     def test_raw_response_update(self, client: Agentlin) -> None:
         response = client.threads.with_raw_response.update(
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
@@ -159,6 +136,7 @@ class TestThreads:
     def test_streaming_response_update(self, client: Agentlin) -> None:
         with client.threads.with_streaming_response.update(
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -174,6 +152,7 @@ class TestThreads:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             client.threads.with_raw_response.update(
                 thread_id="",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -234,20 +213,8 @@ class TestAsyncThreads:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
         thread = await async_client.threads.create(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                    "attachments": [
-                        {
-                            "file_id": "file_id",
-                            "tools": [{"type": "code_interpreter"}],
-                        }
-                    ],
-                    "metadata": {"foo": "string"},
-                }
-            ],
-            metadata={"foo": "string"},
+            messages=[{}],
+            metadata={},
             tool_resources={
                 "code_interpreter": {"file_ids": ["string"]},
                 "file_search": {
@@ -256,7 +223,7 @@ class TestAsyncThreads:
                         {
                             "chunking_strategy": {"type": "auto"},
                             "file_ids": ["string"],
-                            "metadata": {"foo": "string"},
+                            "metadata": {},
                         }
                     ],
                 },
@@ -333,19 +300,7 @@ class TestAsyncThreads:
     async def test_method_update(self, async_client: AsyncAgentlin) -> None:
         thread = await async_client.threads.update(
             thread_id="thread_id",
-        )
-        assert_matches_type(ThreadObject, thread, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        thread = await async_client.threads.update(
-            thread_id="thread_id",
-            metadata={"foo": "string"},
-            tool_resources={
-                "code_interpreter": {"file_ids": ["string"]},
-                "file_search": {"vector_store_ids": ["string"]},
-            },
+            body={},
         )
         assert_matches_type(ThreadObject, thread, path=["response"])
 
@@ -354,6 +309,7 @@ class TestAsyncThreads:
     async def test_raw_response_update(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.threads.with_raw_response.update(
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
@@ -366,6 +322,7 @@ class TestAsyncThreads:
     async def test_streaming_response_update(self, async_client: AsyncAgentlin) -> None:
         async with async_client.threads.with_streaming_response.update(
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -381,6 +338,7 @@ class TestAsyncThreads:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             await async_client.threads.with_raw_response.update(
                 thread_id="",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

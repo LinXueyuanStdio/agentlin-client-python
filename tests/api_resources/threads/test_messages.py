@@ -26,25 +26,7 @@ class TestMessages:
     def test_method_create(self, client: Agentlin) -> None:
         message = client.threads.messages.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
-        )
-        assert_matches_type(MessageObject, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params(self, client: Agentlin) -> None:
-        message = client.threads.messages.create(
-            thread_id="thread_id",
-            content="string",
-            role="user",
-            attachments=[
-                {
-                    "file_id": "file_id",
-                    "tools": [{"type": "code_interpreter"}],
-                }
-            ],
-            metadata={"foo": "string"},
+            body={},
         )
         assert_matches_type(MessageObject, message, path=["response"])
 
@@ -53,8 +35,7 @@ class TestMessages:
     def test_raw_response_create(self, client: Agentlin) -> None:
         response = client.threads.messages.with_raw_response.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
+            body={},
         )
 
         assert response.is_closed is True
@@ -67,8 +48,7 @@ class TestMessages:
     def test_streaming_response_create(self, client: Agentlin) -> None:
         with client.threads.messages.with_streaming_response.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -84,8 +64,7 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             client.threads.messages.with_raw_response.create(
                 thread_id="",
-                content="string",
-                role="user",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -146,16 +125,7 @@ class TestMessages:
         message = client.threads.messages.update(
             message_id="message_id",
             thread_id="thread_id",
-        )
-        assert_matches_type(MessageObject, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Agentlin) -> None:
-        message = client.threads.messages.update(
-            message_id="message_id",
-            thread_id="thread_id",
-            metadata={"foo": "string"},
+            body={},
         )
         assert_matches_type(MessageObject, message, path=["response"])
 
@@ -165,6 +135,7 @@ class TestMessages:
         response = client.threads.messages.with_raw_response.update(
             message_id="message_id",
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
@@ -178,6 +149,7 @@ class TestMessages:
         with client.threads.messages.with_streaming_response.update(
             message_id="message_id",
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -194,12 +166,14 @@ class TestMessages:
             client.threads.messages.with_raw_response.update(
                 message_id="message_id",
                 thread_id="",
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.threads.messages.with_raw_response.update(
                 message_id="",
                 thread_id="thread_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -320,25 +294,7 @@ class TestAsyncMessages:
     async def test_method_create(self, async_client: AsyncAgentlin) -> None:
         message = await async_client.threads.messages.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
-        )
-        assert_matches_type(MessageObject, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        message = await async_client.threads.messages.create(
-            thread_id="thread_id",
-            content="string",
-            role="user",
-            attachments=[
-                {
-                    "file_id": "file_id",
-                    "tools": [{"type": "code_interpreter"}],
-                }
-            ],
-            metadata={"foo": "string"},
+            body={},
         )
         assert_matches_type(MessageObject, message, path=["response"])
 
@@ -347,8 +303,7 @@ class TestAsyncMessages:
     async def test_raw_response_create(self, async_client: AsyncAgentlin) -> None:
         response = await async_client.threads.messages.with_raw_response.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
+            body={},
         )
 
         assert response.is_closed is True
@@ -361,8 +316,7 @@ class TestAsyncMessages:
     async def test_streaming_response_create(self, async_client: AsyncAgentlin) -> None:
         async with async_client.threads.messages.with_streaming_response.create(
             thread_id="thread_id",
-            content="string",
-            role="user",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -378,8 +332,7 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
             await async_client.threads.messages.with_raw_response.create(
                 thread_id="",
-                content="string",
-                role="user",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -440,16 +393,7 @@ class TestAsyncMessages:
         message = await async_client.threads.messages.update(
             message_id="message_id",
             thread_id="thread_id",
-        )
-        assert_matches_type(MessageObject, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncAgentlin) -> None:
-        message = await async_client.threads.messages.update(
-            message_id="message_id",
-            thread_id="thread_id",
-            metadata={"foo": "string"},
+            body={},
         )
         assert_matches_type(MessageObject, message, path=["response"])
 
@@ -459,6 +403,7 @@ class TestAsyncMessages:
         response = await async_client.threads.messages.with_raw_response.update(
             message_id="message_id",
             thread_id="thread_id",
+            body={},
         )
 
         assert response.is_closed is True
@@ -472,6 +417,7 @@ class TestAsyncMessages:
         async with async_client.threads.messages.with_streaming_response.update(
             message_id="message_id",
             thread_id="thread_id",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -488,12 +434,14 @@ class TestAsyncMessages:
             await async_client.threads.messages.with_raw_response.update(
                 message_id="message_id",
                 thread_id="",
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.threads.messages.with_raw_response.update(
                 message_id="",
                 thread_id="thread_id",
+                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

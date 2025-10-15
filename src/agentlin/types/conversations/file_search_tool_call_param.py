@@ -6,20 +6,12 @@ from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
-from ..vector_stores.vector_store_file_attributes_param import VectorStoreFileAttributesParam
 
 __all__ = ["FileSearchToolCallParam", "Result"]
 
 
 class Result(TypedDict, total=False):
-    attributes: Optional[VectorStoreFileAttributesParam]
-    """Set of 16 key-value pairs that can be attached to an object.
-
-    This can be useful for storing additional information about the object in a
-    structured format, and querying for objects via API or the dashboard. Keys are
-    strings with a maximum length of 64 characters. Values are strings with a
-    maximum length of 512 characters, booleans, or numbers.
-    """
+    attributes: object
 
     file_id: str
     """The unique ID of the file."""

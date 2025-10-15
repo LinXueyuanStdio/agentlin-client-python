@@ -5,8 +5,6 @@ from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
 from .._models import BaseModel
-from .compound_filter import CompoundFilter
-from .comparison_filter import ComparisonFilter
 from .realtime.mcp_tool import McpTool
 from .image_input_fidelity import ImageInputFidelity
 
@@ -14,8 +12,6 @@ __all__ = [
     "ResponseTool",
     "Function",
     "FileSearch",
-    "FileSearchFilters",
-    "FileSearchRankingOptions",
     "ComputerUsePreview",
     "WebSearchTool",
     "WebSearchToolFilters",
@@ -55,21 +51,6 @@ class Function(BaseModel):
     """
 
 
-FileSearchFilters: TypeAlias = Union[ComparisonFilter, CompoundFilter, None]
-
-
-class FileSearchRankingOptions(BaseModel):
-    ranker: Optional[Literal["auto", "default-2024-11-15"]] = None
-    """The ranker to use for the file search."""
-
-    score_threshold: Optional[float] = None
-    """The score threshold for the file search, a number between 0 and 1.
-
-    Numbers closer to 1 will attempt to return only the most relevant results, but
-    may return fewer results.
-    """
-
-
 class FileSearch(BaseModel):
     type: Literal["file_search"]
     """The type of the file search tool. Always `file_search`."""
@@ -77,7 +58,7 @@ class FileSearch(BaseModel):
     vector_store_ids: List[str]
     """The IDs of the vector stores to search."""
 
-    filters: Optional[FileSearchFilters] = None
+    filters: Optional[object] = None
     """A filter to apply."""
 
     max_num_results: Optional[int] = None
@@ -86,7 +67,7 @@ class FileSearch(BaseModel):
     This number should be between 1 and 50 inclusive.
     """
 
-    ranking_options: Optional[FileSearchRankingOptions] = None
+    ranking_options: Optional[object] = None
     """Ranking options for search."""
 
 

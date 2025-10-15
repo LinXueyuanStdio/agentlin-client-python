@@ -6,8 +6,6 @@ from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .chat.metadata_param import MetadataParam
-from .threads.create_message_request_param import CreateMessageRequestParam
 
 __all__ = [
     "ThreadCreateParams",
@@ -23,21 +21,13 @@ __all__ = [
 
 
 class ThreadCreateParams(TypedDict, total=False):
-    messages: Iterable[CreateMessageRequestParam]
+    messages: Iterable[object]
     """
     A list of [messages](https://platform.openai.com/docs/api-reference/messages) to
     start the thread with.
     """
 
-    metadata: Optional[MetadataParam]
-    """Set of 16 key-value pairs that can be attached to an object.
-
-    This can be useful for storing additional information about the object in a
-    structured format, and querying for objects via API or the dashboard.
-
-    Keys are strings with a maximum length of 64 characters. Values are strings with
-    a maximum length of 512 characters.
-    """
+    metadata: object
 
     tool_resources: Optional[ToolResources]
     """
@@ -103,15 +93,7 @@ class ToolResourcesFileSearchVectorStore(TypedDict, total=False):
     store.
     """
 
-    metadata: Optional[MetadataParam]
-    """Set of 16 key-value pairs that can be attached to an object.
-
-    This can be useful for storing additional information about the object in a
-    structured format, and querying for objects via API or the dashboard.
-
-    Keys are strings with a maximum length of 64 characters. Values are strings with
-    a maximum length of 512 characters.
-    """
+    metadata: object
 
 
 class ToolResourcesFileSearch(TypedDict, total=False):
