@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from .includable import Includable as Includable
 from .input_item import InputItem as InputItem
-from .input_audio import InputAudio as InputAudio
 from .input_content import InputContent as InputContent
 from .input_message import InputMessage as InputMessage
 from .mcp_tool_call import McpToolCall as McpToolCall
@@ -16,7 +15,6 @@ from .custom_tool_call import CustomToolCall as CustomToolCall
 from .input_item_param import InputItemParam as InputItemParam
 from .item_list_params import ItemListParams as ItemListParams
 from .conversation_item import ConversationItem as ConversationItem
-from .input_audio_param import InputAudioParam as InputAudioParam
 from .computer_tool_call import ComputerToolCall as ComputerToolCall
 from .easy_input_message import EasyInputMessage as EasyInputMessage
 from .function_tool_call import FunctionToolCall as FunctionToolCall
