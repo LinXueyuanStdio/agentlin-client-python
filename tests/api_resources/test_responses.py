@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from agentlin import Agentlin, AsyncAgentlin
 from tests.utils import assert_matches_type
-from agentlin.types import (
+from agentlin_client import Client, AsyncClient
+from agentlin_client.types import (
     Response,
     ResponseListInputItemsResponse,
 )
@@ -22,13 +22,13 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create(self, client: Agentlin) -> None:
+    def test_method_create(self, client: Client) -> None:
         response = client.responses.create()
         assert_matches_type(Response, response, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Agentlin) -> None:
+    def test_method_create_with_all_params(self, client: Client) -> None:
         response = client.responses.create(
             background=True,
             conversation="string",
@@ -81,7 +81,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: Agentlin) -> None:
+    def test_raw_response_create(self, client: Client) -> None:
         http_response = client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
@@ -91,7 +91,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: Agentlin) -> None:
+    def test_streaming_response_create(self, client: Client) -> None:
         with client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -103,7 +103,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: Agentlin) -> None:
+    def test_method_retrieve(self, client: Client) -> None:
         response = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -111,7 +111,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve_with_all_params(self, client: Agentlin) -> None:
+    def test_method_retrieve_with_all_params(self, client: Client) -> None:
         response = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             include=["code_interpreter_call.outputs"],
@@ -123,7 +123,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: Agentlin) -> None:
+    def test_raw_response_retrieve(self, client: Client) -> None:
         http_response = client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -135,7 +135,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: Agentlin) -> None:
+    def test_streaming_response_retrieve(self, client: Client) -> None:
         with client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -149,7 +149,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: Agentlin) -> None:
+    def test_path_params_retrieve(self, client: Client) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.retrieve(
                 response_id="",
@@ -157,7 +157,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_delete(self, client: Agentlin) -> None:
+    def test_method_delete(self, client: Client) -> None:
         response = client.responses.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -165,7 +165,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: Agentlin) -> None:
+    def test_raw_response_delete(self, client: Client) -> None:
         http_response = client.responses.with_raw_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -177,7 +177,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: Agentlin) -> None:
+    def test_streaming_response_delete(self, client: Client) -> None:
         with client.responses.with_streaming_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -191,7 +191,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: Agentlin) -> None:
+    def test_path_params_delete(self, client: Client) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.delete(
                 "",
@@ -199,7 +199,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_cancel(self, client: Agentlin) -> None:
+    def test_method_cancel(self, client: Client) -> None:
         response = client.responses.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -207,7 +207,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_cancel(self, client: Agentlin) -> None:
+    def test_raw_response_cancel(self, client: Client) -> None:
         http_response = client.responses.with_raw_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -219,7 +219,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_cancel(self, client: Agentlin) -> None:
+    def test_streaming_response_cancel(self, client: Client) -> None:
         with client.responses.with_streaming_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -233,7 +233,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_cancel(self, client: Agentlin) -> None:
+    def test_path_params_cancel(self, client: Client) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.cancel(
                 "",
@@ -241,7 +241,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_input_items(self, client: Agentlin) -> None:
+    def test_method_list_input_items(self, client: Client) -> None:
         response = client.responses.list_input_items(
             response_id="response_id",
         )
@@ -249,7 +249,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_input_items_with_all_params(self, client: Agentlin) -> None:
+    def test_method_list_input_items_with_all_params(self, client: Client) -> None:
         response = client.responses.list_input_items(
             response_id="response_id",
             after="after",
@@ -261,7 +261,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list_input_items(self, client: Agentlin) -> None:
+    def test_raw_response_list_input_items(self, client: Client) -> None:
         http_response = client.responses.with_raw_response.list_input_items(
             response_id="response_id",
         )
@@ -273,7 +273,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list_input_items(self, client: Agentlin) -> None:
+    def test_streaming_response_list_input_items(self, client: Client) -> None:
         with client.responses.with_streaming_response.list_input_items(
             response_id="response_id",
         ) as http_response:
@@ -287,7 +287,7 @@ class TestResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_list_input_items(self, client: Agentlin) -> None:
+    def test_path_params_list_input_items(self, client: Client) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.list_input_items(
                 response_id="",
@@ -301,13 +301,13 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_create(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.create()
         assert_matches_type(Response, response, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.create(
             background=True,
             conversation="string",
@@ -360,7 +360,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncAgentlin) -> None:
+    async def test_raw_response_create(self, async_client: AsyncClient) -> None:
         http_response = await async_client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
@@ -370,7 +370,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncAgentlin) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncClient) -> None:
         async with async_client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -382,7 +382,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_retrieve(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -390,7 +390,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             include=["code_interpreter_call.outputs"],
@@ -402,7 +402,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncAgentlin) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncClient) -> None:
         http_response = await async_client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -414,7 +414,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncAgentlin) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncClient) -> None:
         async with async_client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -428,7 +428,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncAgentlin) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.retrieve(
                 response_id="",
@@ -436,7 +436,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_delete(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -444,7 +444,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncAgentlin) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncClient) -> None:
         http_response = await async_client.responses.with_raw_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -456,7 +456,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncAgentlin) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncClient) -> None:
         async with async_client.responses.with_streaming_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -470,7 +470,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncAgentlin) -> None:
+    async def test_path_params_delete(self, async_client: AsyncClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.delete(
                 "",
@@ -478,7 +478,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_cancel(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -486,7 +486,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncAgentlin) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncClient) -> None:
         http_response = await async_client.responses.with_raw_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -498,7 +498,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncAgentlin) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncClient) -> None:
         async with async_client.responses.with_streaming_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -512,7 +512,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncAgentlin) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.cancel(
                 "",
@@ -520,7 +520,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_input_items(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_list_input_items(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.list_input_items(
             response_id="response_id",
         )
@@ -528,7 +528,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_input_items_with_all_params(self, async_client: AsyncAgentlin) -> None:
+    async def test_method_list_input_items_with_all_params(self, async_client: AsyncClient) -> None:
         response = await async_client.responses.list_input_items(
             response_id="response_id",
             after="after",
@@ -540,7 +540,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list_input_items(self, async_client: AsyncAgentlin) -> None:
+    async def test_raw_response_list_input_items(self, async_client: AsyncClient) -> None:
         http_response = await async_client.responses.with_raw_response.list_input_items(
             response_id="response_id",
         )
@@ -552,7 +552,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list_input_items(self, async_client: AsyncAgentlin) -> None:
+    async def test_streaming_response_list_input_items(self, async_client: AsyncClient) -> None:
         async with async_client.responses.with_streaming_response.list_input_items(
             response_id="response_id",
         ) as http_response:
@@ -566,7 +566,7 @@ class TestAsyncResponses:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_list_input_items(self, async_client: AsyncAgentlin) -> None:
+    async def test_path_params_list_input_items(self, async_client: AsyncClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.list_input_items(
                 response_id="",

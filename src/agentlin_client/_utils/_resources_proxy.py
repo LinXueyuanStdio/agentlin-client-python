@@ -7,17 +7,17 @@ from ._proxy import LazyProxy
 
 
 class ResourcesProxy(LazyProxy[Any]):
-    """A proxy for the `agentlin.resources` module.
+    """A proxy for the `agentlin_client.resources` module.
 
-    This is used so that we can lazily import `agentlin.resources` only when
-    needed *and* so that users can just import `agentlin` and reference `agentlin.resources`
+    This is used so that we can lazily import `agentlin_client.resources` only when
+    needed *and* so that users can just import `agentlin_client` and reference `agentlin_client.resources`
     """
 
     @override
     def __load__(self) -> Any:
         import importlib
 
-        mod = importlib.import_module("agentlin.resources")
+        mod = importlib.import_module("agentlin_client.resources")
         return mod
 
 

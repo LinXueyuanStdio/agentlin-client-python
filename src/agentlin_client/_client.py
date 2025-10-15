@@ -23,7 +23,7 @@ from ._utils import is_given, get_async_library
 from ._version import __version__
 from .resources import responses
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import AgentlinError, APIStatusError
+from ._exceptions import ClientError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -31,23 +31,14 @@ from ._base_client import (
 )
 from .resources.conversations import conversations
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "Agentlin",
-    "AsyncAgentlin",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Client", "AsyncClient"]
 
 
-class Agentlin(SyncAPIClient):
+class Client(SyncAPIClient):
     conversations: conversations.ConversationsResource
     responses: responses.ResponsesResource
-    with_raw_response: AgentlinWithRawResponse
-    with_streaming_response: AgentlinWithStreamedResponse
+    with_raw_response: ClientWithRawResponse
+    with_streaming_response: ClientWithStreamedResponse
 
     # client options
     api_key: str
@@ -75,20 +66,20 @@ class Agentlin(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Agentlin client instance.
+        """Construct a new synchronous Client client instance.
 
         This automatically infers the `api_key` argument from the `AGENTLIN_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("AGENTLIN_API_KEY")
         if api_key is None:
-            raise AgentlinError(
+            raise ClientError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the AGENTLIN_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("AGENTLIN_BASE_URL")
+            base_url = os.environ.get("CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.openai.com/v1"
 
@@ -105,8 +96,8 @@ class Agentlin(SyncAPIClient):
 
         self.conversations = conversations.ConversationsResource(self)
         self.responses = responses.ResponsesResource(self)
-        self.with_raw_response = AgentlinWithRawResponse(self)
-        self.with_streaming_response = AgentlinWithStreamedResponse(self)
+        self.with_raw_response = ClientWithRawResponse(self)
+        self.with_streaming_response = ClientWithStreamedResponse(self)
 
     @property
     @override
@@ -213,11 +204,11 @@ class Agentlin(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncAgentlin(AsyncAPIClient):
+class AsyncClient(AsyncAPIClient):
     conversations: conversations.AsyncConversationsResource
     responses: responses.AsyncResponsesResource
-    with_raw_response: AsyncAgentlinWithRawResponse
-    with_streaming_response: AsyncAgentlinWithStreamedResponse
+    with_raw_response: AsyncClientWithRawResponse
+    with_streaming_response: AsyncClientWithStreamedResponse
 
     # client options
     api_key: str
@@ -245,20 +236,20 @@ class AsyncAgentlin(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncAgentlin client instance.
+        """Construct a new async AsyncClient client instance.
 
         This automatically infers the `api_key` argument from the `AGENTLIN_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("AGENTLIN_API_KEY")
         if api_key is None:
-            raise AgentlinError(
+            raise ClientError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the AGENTLIN_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("AGENTLIN_BASE_URL")
+            base_url = os.environ.get("CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.openai.com/v1"
 
@@ -275,8 +266,8 @@ class AsyncAgentlin(AsyncAPIClient):
 
         self.conversations = conversations.AsyncConversationsResource(self)
         self.responses = responses.AsyncResponsesResource(self)
-        self.with_raw_response = AsyncAgentlinWithRawResponse(self)
-        self.with_streaming_response = AsyncAgentlinWithStreamedResponse(self)
+        self.with_raw_response = AsyncClientWithRawResponse(self)
+        self.with_streaming_response = AsyncClientWithStreamedResponse(self)
 
     @property
     @override
@@ -383,30 +374,30 @@ class AsyncAgentlin(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AgentlinWithRawResponse:
-    def __init__(self, client: Agentlin) -> None:
+class ClientWithRawResponse:
+    def __init__(self, client: Client) -> None:
         self.conversations = conversations.ConversationsResourceWithRawResponse(client.conversations)
         self.responses = responses.ResponsesResourceWithRawResponse(client.responses)
 
 
-class AsyncAgentlinWithRawResponse:
-    def __init__(self, client: AsyncAgentlin) -> None:
+class AsyncClientWithRawResponse:
+    def __init__(self, client: AsyncClient) -> None:
         self.conversations = conversations.AsyncConversationsResourceWithRawResponse(client.conversations)
         self.responses = responses.AsyncResponsesResourceWithRawResponse(client.responses)
 
 
-class AgentlinWithStreamedResponse:
-    def __init__(self, client: Agentlin) -> None:
+class ClientWithStreamedResponse:
+    def __init__(self, client: Client) -> None:
         self.conversations = conversations.ConversationsResourceWithStreamingResponse(client.conversations)
         self.responses = responses.ResponsesResourceWithStreamingResponse(client.responses)
 
 
-class AsyncAgentlinWithStreamedResponse:
-    def __init__(self, client: AsyncAgentlin) -> None:
+class AsyncClientWithStreamedResponse:
+    def __init__(self, client: AsyncClient) -> None:
         self.conversations = conversations.AsyncConversationsResourceWithStreamingResponse(client.conversations)
         self.responses = responses.AsyncResponsesResourceWithStreamingResponse(client.responses)
 
 
-Client = Agentlin
+Client = Client
 
-AsyncClient = AsyncAgentlin
+AsyncClient = AsyncClient

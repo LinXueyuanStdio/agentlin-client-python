@@ -8,7 +8,7 @@ from datetime import date, datetime, timezone, timedelta
 
 import pytest
 
-from agentlin._utils import parse_date, parse_datetime
+from agentlin_client._utils import parse_date, parse_datetime
 
 
 def create_tz(minutes: int) -> timezone:

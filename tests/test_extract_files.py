@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from agentlin._types import FileTypes
-from agentlin._utils import extract_files
+from agentlin_client._types import FileTypes
+from agentlin_client._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:
