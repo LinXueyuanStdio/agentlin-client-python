@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from agentlin._utils import PropertyInfo
-from agentlin._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from agentlin._models import BaseModel, construct_type
+from agentlin_client._utils import PropertyInfo
+from agentlin_client._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from agentlin_client._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):
