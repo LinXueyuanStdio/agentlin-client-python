@@ -45,7 +45,7 @@ class Function(TypedDict, total=False):
     name: Required[str]
     """The name of the function to call."""
 
-    parameters: Required[Optional[object]]
+    parameters: Required[Optional[Dict[str, object]]]
     """A JSON schema object describing the parameters of the function."""
 
     strict: Required[Optional[bool]]

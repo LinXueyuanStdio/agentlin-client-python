@@ -44,7 +44,7 @@ class Function(BaseModel):
     name: str
     """The name of the function to call."""
 
-    parameters: Optional[object] = None
+    parameters: Optional[Dict[str, object]] = None
     """A JSON schema object describing the parameters of the function."""
 
     strict: Optional[bool] = None
