@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1 (2025-10-30)
+
+Full Changelog: [v1.0.0...v1.0.1](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.0.0...v1.0.1)
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([bb3166f](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/bb3166fb267a0b25f27d73cead1261c40d5f7af9))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([e216c0e](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/e216c0e8b7baf28e001e9eab80377894b6bf0f7f))
+
 ## 1.0.0 (2025-10-15)
 
 Full Changelog: [v0.1.0...v1.0.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v0.1.0...v1.0.0)
