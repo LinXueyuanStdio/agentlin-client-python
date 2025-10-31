@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 (2025-10-31)
+
+Full Changelog: [v1.0.1...v1.0.2](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.0.1...v1.0.2)
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([3e6cc4e](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/3e6cc4ea726815ce76134fa4cb2602fbdd0e902b))
+
 ## 1.0.1 (2025-10-30)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.0.0...v1.0.1)
