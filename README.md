@@ -33,7 +33,7 @@ client = Client(
 )
 
 task = client.tasks.create(
-    stream=True,
+    stream=False,
     user_message_content=[
         {
             "type": "text",
@@ -65,7 +65,7 @@ client = AsyncClient(
 
 async def main() -> None:
     task = await client.tasks.create(
-        stream=True,
+        stream=False,
         user_message_content=[
             {
                 "type": "text",
@@ -106,7 +106,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         task = await client.tasks.create(
-            stream=True,
+            stream=False,
             user_message_content=[
                 {
                     "type": "text",
@@ -178,7 +178,7 @@ client = Client()
 
 try:
     client.tasks.create(
-        stream=True,
+        stream=False,
         user_message_content=[
             {
                 "type": "text",
@@ -229,7 +229,7 @@ client = Client(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).tasks.create(
-    stream=True,
+    stream=False,
     user_message_content=[
         {
             "type": "text",
@@ -260,7 +260,7 @@ client = Client(
 
 # Override per-request:
 client.with_options(timeout=5.0).tasks.create(
-    stream=True,
+    stream=False,
     user_message_content=[
         {
             "type": "text",
@@ -309,7 +309,7 @@ from agentlin_client import Client
 
 client = Client()
 response = client.tasks.with_raw_response.create(
-    stream=True,
+    stream=False,
     user_message_content=[{
         "type": "text",
         "text": "hello",
@@ -333,7 +333,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.tasks.with_streaming_response.create(
-    stream=True,
+    stream=False,
     user_message_content=[
         {
             "type": "text",

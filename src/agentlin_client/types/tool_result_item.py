@@ -8,6 +8,14 @@ from .text_content_item import TextContentItem
 
 __all__ = [
     "ToolResultItem",
+    "MessageContentUnionMember1",
+    "MessageContentUnionMember1TextContent",
+    "MessageContentUnionMember1ImageURLContent",
+    "MessageContentUnionMember1ImageURLContentImageURL",
+    "MessageContentUnionMember1InputAudioContent",
+    "MessageContentUnionMember1InputAudioContentInputAudio",
+    "MessageContentUnionMember1FileContent",
+    "MessageContentUnionMember1FileContentFile",
     "OutputUnionMember1",
     "OutputUnionMember1ImageContentItem",
     "OutputUnionMember1ImageContentItemImageURL",
@@ -15,6 +23,72 @@ __all__ = [
     "OutputUnionMember1AudioContentItemInputAudio",
     "OutputUnionMember1FileContentItem",
     "OutputUnionMember1FileContentItemFile",
+]
+
+
+class MessageContentUnionMember1TextContent(BaseModel):
+    text: str
+    """文本内容。"""
+
+    type: Literal["text", "input_text"]
+    """文本内容类型标识。"""
+
+
+class MessageContentUnionMember1ImageURLContentImageURL(BaseModel):
+    url: str
+    """图片的可访问 URL。"""
+
+    detail: Optional[Literal["low", "high", "auto"]] = None
+    """清晰度等级，可选 low/high/auto。"""
+
+
+class MessageContentUnionMember1ImageURLContent(BaseModel):
+    image_url: MessageContentUnionMember1ImageURLContentImageURL
+    """图片 URL 及清晰度参数。"""
+
+    type: Literal["image_url", "image"]
+    """图片内容类型标识。"""
+
+
+class MessageContentUnionMember1InputAudioContentInputAudio(BaseModel):
+    data: str
+    """Base64-encoded audio bytes"""
+
+    format: Literal["wav", "mp3"]
+
+
+class MessageContentUnionMember1InputAudioContent(BaseModel):
+    input_audio: MessageContentUnionMember1InputAudioContentInputAudio
+    """输入音频内容（Base64 编码）。"""
+
+    type: Literal["input_audio"]
+    """音频内容类型标识。"""
+
+
+class MessageContentUnionMember1FileContentFile(BaseModel):
+    file_url: str
+    """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
+
+    filename: str
+    """文件名（含扩展名），用于渲染与调试追踪。"""
+
+    file_data: Optional[str] = None
+    """Optional Base64-encoded file content"""
+
+
+class MessageContentUnionMember1FileContent(BaseModel):
+    file: MessageContentUnionMember1FileContentFile
+    """文件详情（URL/文件名/可选 Base64 内容）。"""
+
+    type: Literal["file"]
+    """文件内容类型标识。"""
+
+
+MessageContentUnionMember1: TypeAlias = Union[
+    MessageContentUnionMember1TextContent,
+    MessageContentUnionMember1ImageURLContent,
+    MessageContentUnionMember1InputAudioContent,
+    MessageContentUnionMember1FileContent,
 ]
 
 
@@ -84,7 +158,7 @@ class ToolResultItem(BaseModel):
     call_id: str
     """对应的工具调用 ID。"""
 
-    message_content: List[object]
+    message_content: Union[str, List[MessageContentUnionMember1]]
     """工具结果的 message_content（用于富文本/富媒体渲染）。"""
 
     type: Literal["tool_result"]
