@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import responses
+from .resources import tasks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ClientError, APIStatusError
 from ._base_client import (
@@ -29,14 +29,12 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.conversations import conversations
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Client", "AsyncClient"]
 
 
 class Client(SyncAPIClient):
-    conversations: conversations.ConversationsResource
-    responses: responses.ResponsesResource
+    tasks: tasks.TasksResource
     with_raw_response: ClientWithRawResponse
     with_streaming_response: ClientWithStreamedResponse
 
@@ -81,7 +79,7 @@ class Client(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("CLIENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.openai.com/v1"
+            base_url = f"https://api.linxueyuan.online/v1"
 
         super().__init__(
             version=__version__,
@@ -94,8 +92,7 @@ class Client(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.conversations = conversations.ConversationsResource(self)
-        self.responses = responses.ResponsesResource(self)
+        self.tasks = tasks.TasksResource(self)
         self.with_raw_response = ClientWithRawResponse(self)
         self.with_streaming_response = ClientWithStreamedResponse(self)
 
@@ -205,8 +202,7 @@ class Client(SyncAPIClient):
 
 
 class AsyncClient(AsyncAPIClient):
-    conversations: conversations.AsyncConversationsResource
-    responses: responses.AsyncResponsesResource
+    tasks: tasks.AsyncTasksResource
     with_raw_response: AsyncClientWithRawResponse
     with_streaming_response: AsyncClientWithStreamedResponse
 
@@ -251,7 +247,7 @@ class AsyncClient(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("CLIENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.openai.com/v1"
+            base_url = f"https://api.linxueyuan.online/v1"
 
         super().__init__(
             version=__version__,
@@ -264,8 +260,7 @@ class AsyncClient(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.conversations = conversations.AsyncConversationsResource(self)
-        self.responses = responses.AsyncResponsesResource(self)
+        self.tasks = tasks.AsyncTasksResource(self)
         self.with_raw_response = AsyncClientWithRawResponse(self)
         self.with_streaming_response = AsyncClientWithStreamedResponse(self)
 
@@ -376,26 +371,22 @@ class AsyncClient(AsyncAPIClient):
 
 class ClientWithRawResponse:
     def __init__(self, client: Client) -> None:
-        self.conversations = conversations.ConversationsResourceWithRawResponse(client.conversations)
-        self.responses = responses.ResponsesResourceWithRawResponse(client.responses)
+        self.tasks = tasks.TasksResourceWithRawResponse(client.tasks)
 
 
 class AsyncClientWithRawResponse:
     def __init__(self, client: AsyncClient) -> None:
-        self.conversations = conversations.AsyncConversationsResourceWithRawResponse(client.conversations)
-        self.responses = responses.AsyncResponsesResourceWithRawResponse(client.responses)
+        self.tasks = tasks.AsyncTasksResourceWithRawResponse(client.tasks)
 
 
 class ClientWithStreamedResponse:
     def __init__(self, client: Client) -> None:
-        self.conversations = conversations.ConversationsResourceWithStreamingResponse(client.conversations)
-        self.responses = responses.ResponsesResourceWithStreamingResponse(client.responses)
+        self.tasks = tasks.TasksResourceWithStreamingResponse(client.tasks)
 
 
 class AsyncClientWithStreamedResponse:
     def __init__(self, client: AsyncClient) -> None:
-        self.conversations = conversations.AsyncConversationsResourceWithStreamingResponse(client.conversations)
-        self.responses = responses.AsyncResponsesResourceWithStreamingResponse(client.responses)
+        self.tasks = tasks.AsyncTasksResourceWithStreamingResponse(client.tasks)
 
 
 Client = Client

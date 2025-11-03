@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [help.openai.com](https://help.openai.com/). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [help.linxueyuan.online](https://help.linxueyuan.online/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -32,9 +32,16 @@ client = Client(
     api_key=os.environ.get("AGENTLIN_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.responses.create(
-    input="hello",
+task = client.tasks.create(
+    stream=True,
+    user_message_content=[
+        {
+            "text": "text",
+            "type": "text",
+        }
+    ],
 )
+print(task.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -57,9 +64,16 @@ client = AsyncClient(
 
 
 async def main() -> None:
-    response = await client.responses.create(
-        input="hello",
+    task = await client.tasks.create(
+        stream=True,
+        user_message_content=[
+            {
+                "text": "text",
+                "type": "text",
+            }
+        ],
     )
+    print(task.id)
 
 
 asyncio.run(main())
@@ -91,9 +105,16 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.responses.create(
-            input="hello",
+        task = await client.tasks.create(
+            stream=True,
+            user_message_content=[
+                {
+                    "text": "text",
+                    "type": "text",
+                }
+            ],
         )
+        print(task.id)
 
 
 asyncio.run(main())
@@ -117,10 +138,27 @@ from agentlin_client import Client
 
 client = Client()
 
-response = client.responses.create(
-    prompt={"id": "id"},
+task = client.tasks.create(
+    stream=True,
+    user_message_content=[
+        {
+            "text": "text",
+            "type": "text",
+        }
+    ],
+    agent_config={
+        "agent_id": "agent_id",
+        "code_for_agent": "code_for_agent",
+        "code_for_interpreter": "code_for_interpreter",
+        "description": "description",
+        "developer_prompt": "developer_prompt",
+        "max_model_length": 0,
+        "max_response_length": 0,
+        "model": "model",
+        "name": "name",
+    },
 )
-print(response.prompt)
+print(task.agent_config)
 ```
 
 ## Handling errors
@@ -139,8 +177,14 @@ from agentlin_client import Client
 client = Client()
 
 try:
-    client.responses.create(
-        input="hello",
+    client.tasks.create(
+        stream=True,
+        user_message_content=[
+            {
+                "text": "text",
+                "type": "text",
+            }
+        ],
     )
 except agentlin_client.APIConnectionError as e:
     print("The server could not be reached")
@@ -184,8 +228,14 @@ client = Client(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).responses.create(
-    input="hello",
+client.with_options(max_retries=5).tasks.create(
+    stream=True,
+    user_message_content=[
+        {
+            "text": "text",
+            "type": "text",
+        }
+    ],
 )
 ```
 
@@ -209,8 +259,14 @@ client = Client(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).responses.create(
-    input="hello",
+client.with_options(timeout=5.0).tasks.create(
+    stream=True,
+    user_message_content=[
+        {
+            "text": "text",
+            "type": "text",
+        }
+    ],
 )
 ```
 
@@ -252,13 +308,17 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from agentlin_client import Client
 
 client = Client()
-response = client.responses.with_raw_response.create(
-    input="hello",
+response = client.tasks.with_raw_response.create(
+    stream=True,
+    user_message_content=[{
+        "text": "text",
+        "type": "text",
+    }],
 )
 print(response.headers.get('X-My-Header'))
 
-response = response.parse()  # get the object that `responses.create()` would have returned
-print(response)
+task = response.parse()  # get the object that `tasks.create()` would have returned
+print(task.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/LinXueyuanStdio/agentlin-client-python/tree/main/src/agentlin_client/_response.py) object.
@@ -272,8 +332,14 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.responses.with_streaming_response.create(
-    input="hello",
+with client.tasks.with_streaming_response.create(
+    stream=True,
+    user_message_content=[
+        {
+            "text": "text",
+            "type": "text",
+        }
+    ],
 ) as response:
     print(response.headers.get("X-My-Header"))
 
