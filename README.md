@@ -36,8 +36,8 @@ task = client.tasks.create(
     stream=True,
     user_message_content=[
         {
-            "text": "text",
             "type": "text",
+            "text": "hello",
         }
     ],
 )
@@ -68,8 +68,8 @@ async def main() -> None:
         stream=True,
         user_message_content=[
             {
-                "text": "text",
                 "type": "text",
+                "text": "hello",
             }
         ],
     )
@@ -109,8 +109,8 @@ async def main() -> None:
             stream=True,
             user_message_content=[
                 {
-                    "text": "text",
                     "type": "text",
+                    "text": "hello",
                 }
             ],
         )
@@ -181,8 +181,8 @@ try:
         stream=True,
         user_message_content=[
             {
-                "text": "text",
                 "type": "text",
+                "text": "hello",
             }
         ],
     )
@@ -232,8 +232,8 @@ client.with_options(max_retries=5).tasks.create(
     stream=True,
     user_message_content=[
         {
-            "text": "text",
             "type": "text",
+            "text": "hello",
         }
     ],
 )
@@ -263,8 +263,8 @@ client.with_options(timeout=5.0).tasks.create(
     stream=True,
     user_message_content=[
         {
-            "text": "text",
             "type": "text",
+            "text": "hello",
         }
     ],
 )
@@ -311,8 +311,8 @@ client = Client()
 response = client.tasks.with_raw_response.create(
     stream=True,
     user_message_content=[{
-        "text": "text",
         "type": "text",
+        "text": "hello",
     }],
 )
 print(response.headers.get('X-My-Header'))
@@ -336,8 +336,8 @@ with client.tasks.with_streaming_response.create(
     stream=True,
     user_message_content=[
         {
-            "text": "text",
             "type": "text",
+            "text": "hello",
         }
     ],
 ) as response:
