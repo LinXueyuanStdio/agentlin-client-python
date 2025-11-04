@@ -2,8 +2,9 @@
 
 import builtins
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
 from .message_item import MessageItem
 from .jsonrpc_error import JsonrpcError
@@ -13,7 +14,9 @@ from .tool_result_item import ToolResultItem
 
 __all__ = ["TaskObject", "Output"]
 
-Output: TypeAlias = Union[ReasoningItem, MessageItem, ToolCallItem, ToolResultItem]
+Output: TypeAlias = Annotated[
+    Union[ReasoningItem, MessageItem, ToolCallItem, ToolResultItem], PropertyInfo(discriminator="type")
+]
 
 
 class TaskObject(BaseModel):
