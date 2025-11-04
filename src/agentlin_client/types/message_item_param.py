@@ -11,6 +11,9 @@ __all__ = ["MessageItemParam"]
 
 
 class MessageItemParam(TypedDict, total=False):
+    message_content: Required[MessageContentParam]
+    """消息内容，字符串或内容项数组，工具协议兼容的 message_content（保留字段）。"""
+
     role: Required[Literal["user", "assistant", "system", "developer"]]
     """消息角色。"""
 
@@ -22,9 +25,6 @@ class MessageItemParam(TypedDict, total=False):
 
     block_list: Iterable[object]
     """渲染块列表（图表/表格等富媒体）。"""
-
-    message_content: MessageContentParam
-    """消息内容，字符串或内容项数组，工具协议兼容的 message_content（保留字段）。"""
 
     name: str
     """角色名称（可选）。"""
