@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0 (2025-11-04)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **api:** manual updates ([05dc70a](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/05dc70af7c8b226b70efad91abec6877ebf7a7af))
+
 ## 1.4.0 (2025-11-04)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.3.0...v1.4.0)
