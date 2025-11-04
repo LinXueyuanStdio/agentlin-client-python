@@ -40,11 +40,13 @@ class Client(SyncAPIClient):
 
     # client options
     api_key: str
+    client_id: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        client_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -66,7 +68,9 @@ class Client(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Client client instance.
 
-        This automatically infers the `api_key` argument from the `AGENTLIN_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `AGENTLIN_API_KEY`
+        - `client_id` from `AGENTLIN_CLIENT_ID`
         """
         if api_key is None:
             api_key = os.environ.get("AGENTLIN_API_KEY")
@@ -75,6 +79,10 @@ class Client(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the AGENTLIN_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if client_id is None:
+            client_id = os.environ.get("AGENTLIN_CLIENT_ID")
+        self.client_id = client_id
 
         if base_url is None:
             base_url = os.environ.get("CLIENT_BASE_URL")
@@ -113,6 +121,7 @@ class Client(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Client-Id": self.client_id if self.client_id is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -120,6 +129,7 @@ class Client(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        client_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -154,6 +164,7 @@ class Client(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            client_id=client_id or self.client_id,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -208,11 +219,13 @@ class AsyncClient(AsyncAPIClient):
 
     # client options
     api_key: str
+    client_id: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        client_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -234,7 +247,9 @@ class AsyncClient(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncClient client instance.
 
-        This automatically infers the `api_key` argument from the `AGENTLIN_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `AGENTLIN_API_KEY`
+        - `client_id` from `AGENTLIN_CLIENT_ID`
         """
         if api_key is None:
             api_key = os.environ.get("AGENTLIN_API_KEY")
@@ -243,6 +258,10 @@ class AsyncClient(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the AGENTLIN_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if client_id is None:
+            client_id = os.environ.get("AGENTLIN_CLIENT_ID")
+        self.client_id = client_id
 
         if base_url is None:
             base_url = os.environ.get("CLIENT_BASE_URL")
@@ -281,6 +300,7 @@ class AsyncClient(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Client-Id": self.client_id if self.client_id is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -288,6 +308,7 @@ class AsyncClient(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        client_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -322,6 +343,7 @@ class AsyncClient(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            client_id=client_id or self.client_id,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,

@@ -2,25 +2,18 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .message_item_param import MessageItemParam
 from .reasoning_item_param import ReasoningItemParam
 from .tool_call_item_param import ToolCallItemParam
+from .message_content_param import MessageContentParam
 from .tool_result_item_param import ToolResultItemParam
-from .text_content_item_param import TextContentItemParam
 
 __all__ = [
     "TaskCreateParams",
-    "UserMessageContentUnionMember1",
-    "UserMessageContentUnionMember1ImageContentItem",
-    "UserMessageContentUnionMember1ImageContentItemImageURL",
-    "UserMessageContentUnionMember1AudioContentItem",
-    "UserMessageContentUnionMember1AudioContentItemInputAudio",
-    "UserMessageContentUnionMember1FileContentItem",
-    "UserMessageContentUnionMember1FileContentItemFile",
     "AgentConfig",
     "AgentConfigBuiltinTool",
     "AgentConfigBuiltinToolFunction",
@@ -35,7 +28,7 @@ class TaskCreateParams(TypedDict, total=False):
     stream: Required[bool]
     """是否启用流式（SSE）返回；true 则以 text/event-stream 推送 Task 事件。"""
 
-    user_message_content: Required[Union[str, SequenceNotStr[UserMessageContentUnionMember1]]]
+    user_message_content: Required[MessageContentParam]
     """
     当前用户输入内容（多模态），按顺序提供给主 Agent。消息内容，字符串或内容项数组，
     工具协议兼容的 message_content（保留字段）。
@@ -106,65 +99,6 @@ class TaskCreateParams(TypedDict, total=False):
 
     workspace_dir: str
     """文件系统工作目录；供文件工具与代码解释器使用。"""
-
-
-class UserMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
-    url: Required[str]
-    """图片的可访问 URL。"""
-
-    detail: Optional[Literal["low", "high", "auto"]]
-    """清晰度等级，可选 low/high/auto。"""
-
-
-class UserMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
-    image_url: Required[UserMessageContentUnionMember1ImageContentItemImageURL]
-    """图片 URL 信息。"""
-
-    type: Required[Literal["image", "input_image", "output_image", "image_url"]]
-    """图片内容类型。"""
-
-
-class UserMessageContentUnionMember1AudioContentItemInputAudio(TypedDict, total=False):
-    data: Required[str]
-    """Base64-encoded audio bytes"""
-
-    format: Required[Literal["wav", "mp3"]]
-
-
-class UserMessageContentUnionMember1AudioContentItem(TypedDict, total=False):
-    input_audio: Required[UserMessageContentUnionMember1AudioContentItemInputAudio]
-    """输入音频内容。"""
-
-    type: Required[Literal["input_audio", "output_audio", "audio"]]
-    """音频内容类型。"""
-
-
-class UserMessageContentUnionMember1FileContentItemFile(TypedDict, total=False):
-    file_url: Required[str]
-    """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
-
-    filename: Required[str]
-    """文件名（含扩展名），用于渲染与调试追踪。"""
-
-    file_data: str
-    """Optional Base64-encoded file content"""
-
-
-class UserMessageContentUnionMember1FileContentItem(TypedDict, total=False):
-    file: Required[UserMessageContentUnionMember1FileContentItemFile]
-    """文件详情。"""
-
-    type: Required[Literal["file"]]
-    """文件内容类型。"""
-
-
-UserMessageContentUnionMember1: TypeAlias = Union[
-    TextContentItemParam,
-    UserMessageContentUnionMember1ImageContentItem,
-    UserMessageContentUnionMember1AudioContentItem,
-    UserMessageContentUnionMember1FileContentItem,
-    str,
-]
 
 
 class AgentConfigBuiltinToolFunction(TypedDict, total=False):
