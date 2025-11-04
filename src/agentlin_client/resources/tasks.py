@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -50,7 +50,7 @@ class TasksResource(SyncAPIResource):
         self,
         *,
         stream: bool,
-        user_message_content: Iterable[task_create_params.UserMessageContent],
+        user_message_content: Union[str, SequenceNotStr[task_create_params.UserMessageContentUnionMember1]],
         agent_config: task_create_params.AgentConfig | Omit = omit,
         allowed_subagents: SequenceNotStr[str] | Omit = omit,
         allowed_tools: SequenceNotStr[str] | Omit = omit,
@@ -96,7 +96,8 @@ class TasksResource(SyncAPIResource):
         Args:
           stream: 是否启用流式（SSE）返回；true 则以 text/event-stream 推送 Task 事件。
 
-          user_message_content: 当前用户输入内容（多模态），按顺序提供给主 Agent。
+          user_message_content: 当前用户输入内容（多模态），按顺序提供给主 Agent。消息内容，字符串或内容项数组，
+              工具协议兼容的 message_content（保留字段）。
 
           agent_config: 指定主 Agent 的配置；为空则按 client_id 推断默认 Agent。
 
@@ -314,7 +315,7 @@ class AsyncTasksResource(AsyncAPIResource):
         self,
         *,
         stream: bool,
-        user_message_content: Iterable[task_create_params.UserMessageContent],
+        user_message_content: Union[str, SequenceNotStr[task_create_params.UserMessageContentUnionMember1]],
         agent_config: task_create_params.AgentConfig | Omit = omit,
         allowed_subagents: SequenceNotStr[str] | Omit = omit,
         allowed_tools: SequenceNotStr[str] | Omit = omit,
@@ -360,7 +361,8 @@ class AsyncTasksResource(AsyncAPIResource):
         Args:
           stream: 是否启用流式（SSE）返回；true 则以 text/event-stream 推送 Task 事件。
 
-          user_message_content: 当前用户输入内容（多模态），按顺序提供给主 Agent。
+          user_message_content: 当前用户输入内容（多模态），按顺序提供给主 Agent。消息内容，字符串或内容项数组，
+              工具协议兼容的 message_content（保留字段）。
 
           agent_config: 指定主 Agent 的配置；为空则按 client_id 推断默认 Agent。
 
