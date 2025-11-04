@@ -1,4 +1,4 @@
 configured_endpoints: 4
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/aime%2Fagentlin-c27037caa19905d0d665f5479edd759dd7f2507a98b746a746382731cfb80e70.yml
-openapi_spec_hash: d9ab3758c89de4723e36ffca4be1a13e
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/aime%2Fagentlin-5850a543211da939bff2603f25bb5ad76a21d8fbeacfa2dc0f2733e0cd4f7bb6.yml
+openapi_spec_hash: 49f951878b65605a07d0922ef4fa0344
 config_hash: 9c130838ca76fc2ce018aceb7359fa10
