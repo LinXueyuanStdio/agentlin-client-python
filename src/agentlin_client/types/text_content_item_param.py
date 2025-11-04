@@ -6,20 +6,102 @@ from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .log_prob_param import LogProbParam
-from .annotation_file_path_param import AnnotationFilePathParam
-from .annotation_url_citation_param import AnnotationURLCitationParam
-from .annotation_file_citation_param import AnnotationFileCitationParam
-from .annotation_container_file_citation_param import AnnotationContainerFileCitationParam
 
-__all__ = ["TextContentItemParam", "Annotation"]
+__all__ = [
+    "TextContentItemParam",
+    "Annotation",
+    "AnnotationFileCitation",
+    "AnnotationURLCitation",
+    "AnnotationContainerFileCitation",
+    "AnnotationFilePath",
+    "Logprob",
+    "LogprobTopLogprob",
+]
+
+
+class AnnotationFileCitation(TypedDict, total=False):
+    file_id: Required[str]
+    """The ID of the file."""
+
+    filename: Required[str]
+    """The filename of the file cited."""
+
+    index: Required[int]
+    """The index of the file in the list of files."""
+
+    type: Required[Literal["file_citation"]]
+    """The type of the file citation. Always `file_citation`."""
+
+
+class AnnotationURLCitation(TypedDict, total=False):
+    end_index: Required[int]
+    """The index of the last character of the URL citation in the message."""
+
+    start_index: Required[int]
+    """The index of the first character of the URL citation in the message."""
+
+    title: Required[str]
+    """The title of the web resource."""
+
+    type: Required[Literal["url_citation"]]
+    """The type of the URL citation. Always `url_citation`."""
+
+    url: Required[str]
+    """The URL of the web resource."""
+
+
+class AnnotationContainerFileCitation(TypedDict, total=False):
+    container_id: Required[str]
+    """The ID of the container file."""
+
+    end_index: Required[int]
+    """The index of the last character of the container file citation in the message."""
+
+    file_id: Required[str]
+    """The ID of the file."""
+
+    filename: Required[str]
+    """The filename of the container file cited."""
+
+    start_index: Required[int]
+    """The index of the first character of the container file citation in the message."""
+
+    type: Required[Literal["container_file_citation"]]
+    """The type of the container file citation. Always `container_file_citation`."""
+
+
+class AnnotationFilePath(TypedDict, total=False):
+    file_url: Required[str]
+    """The URL of the file cited."""
+
+    index: Required[int]
+    """The index of the file in the list of files."""
+
+    type: Required[Literal["file_path"]]
+    """The type of the file citation. Always `file_path`."""
+
 
 Annotation: TypeAlias = Union[
-    AnnotationFileCitationParam,
-    AnnotationURLCitationParam,
-    AnnotationContainerFileCitationParam,
-    AnnotationFilePathParam,
+    AnnotationFileCitation, AnnotationURLCitation, AnnotationContainerFileCitation, AnnotationFilePath
 ]
+
+
+class LogprobTopLogprob(TypedDict, total=False):
+    token: Required[str]
+
+    bytes: Required[Iterable[int]]
+
+    logprob: Required[float]
+
+
+class Logprob(TypedDict, total=False):
+    token: Required[str]
+
+    bytes: Required[Iterable[int]]
+
+    logprob: Required[float]
+
+    top_logprobs: Required[Iterable[LogprobTopLogprob]]
 
 
 class TextContentItemParam(TypedDict, total=False):
@@ -35,7 +117,7 @@ class TextContentItemParam(TypedDict, total=False):
     annotations: Iterable[Annotation]
     """文本注释（如引用、链接、文件路径等），与后端 Annotation 模型一致。"""
 
-    logprobs: Iterable[LogProbParam]
+    logprobs: Iterable[Logprob]
     """每个 token 的对数概率信息（可选）。"""
 
     tags: SequenceNotStr[str]
