@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Iterable
 
 import httpx
 
@@ -21,6 +21,7 @@ from .._base_client import make_request_options
 from ..types.task_cancel_response import TaskCancelResponse
 from ..types.task_create_response import TaskCreateResponse
 from ..types.task_delete_response import TaskDeleteResponse
+from ..types.message_content_param import MessageContentParam
 from ..types.task_retrieve_response import TaskRetrieveResponse
 
 __all__ = ["TasksResource", "AsyncTasksResource"]
@@ -50,7 +51,7 @@ class TasksResource(SyncAPIResource):
         self,
         *,
         stream: bool,
-        user_message_content: Union[str, SequenceNotStr[task_create_params.UserMessageContentUnionMember1]],
+        user_message_content: MessageContentParam,
         agent_config: task_create_params.AgentConfig | Omit = omit,
         allowed_subagents: SequenceNotStr[str] | Omit = omit,
         allowed_tools: SequenceNotStr[str] | Omit = omit,
@@ -315,7 +316,7 @@ class AsyncTasksResource(AsyncAPIResource):
         self,
         *,
         stream: bool,
-        user_message_content: Union[str, SequenceNotStr[task_create_params.UserMessageContentUnionMember1]],
+        user_message_content: MessageContentParam,
         agent_config: task_create_params.AgentConfig | Omit = omit,
         allowed_subagents: SequenceNotStr[str] | Omit = omit,
         allowed_tools: SequenceNotStr[str] | Omit = omit,
