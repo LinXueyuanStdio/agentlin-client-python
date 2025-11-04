@@ -27,12 +27,7 @@ class TestTasks:
     def test_method_create(self, client: Client) -> None:
         task = client.tasks.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         )
         assert_matches_type(TaskCreateResponse, task, path=["response"])
 
@@ -41,12 +36,7 @@ class TestTasks:
     def test_method_create_with_all_params(self, client: Client) -> None:
         task = client.tasks.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
             agent_config={
                 "agent_id": "agent_id",
                 "code_for_agent": "code_for_agent",
@@ -95,9 +85,69 @@ class TestTasks:
             env={"foo": "string"},
             history_messages=[
                 {
-                    "content": "string",
-                    "role": "user",
-                    "name": "name",
+                    "id": "id",
+                    "summary": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "type": "reasoning",
+                    "content": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "status": "in_progress",
                 }
             ],
             include_compress_model_rollout=True,
@@ -113,9 +163,69 @@ class TestTasks:
             task_id="task_id",
             thought_messages=[
                 {
-                    "content": "string",
-                    "role": "user",
-                    "name": "name",
+                    "id": "id",
+                    "summary": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "type": "reasoning",
+                    "content": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "status": "in_progress",
                 }
             ],
             user_id="user_id",
@@ -128,12 +238,7 @@ class TestTasks:
     def test_raw_response_create(self, client: Client) -> None:
         response = client.tasks.with_raw_response.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         )
 
         assert response.is_closed is True
@@ -146,12 +251,7 @@ class TestTasks:
     def test_streaming_response_create(self, client: Client) -> None:
         with client.tasks.with_streaming_response.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -298,12 +398,7 @@ class TestAsyncTasks:
     async def test_method_create(self, async_client: AsyncClient) -> None:
         task = await async_client.tasks.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         )
         assert_matches_type(TaskCreateResponse, task, path=["response"])
 
@@ -312,12 +407,7 @@ class TestAsyncTasks:
     async def test_method_create_with_all_params(self, async_client: AsyncClient) -> None:
         task = await async_client.tasks.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
             agent_config={
                 "agent_id": "agent_id",
                 "code_for_agent": "code_for_agent",
@@ -366,9 +456,69 @@ class TestAsyncTasks:
             env={"foo": "string"},
             history_messages=[
                 {
-                    "content": "string",
-                    "role": "user",
-                    "name": "name",
+                    "id": "id",
+                    "summary": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "type": "reasoning",
+                    "content": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "status": "in_progress",
                 }
             ],
             include_compress_model_rollout=True,
@@ -384,9 +534,69 @@ class TestAsyncTasks:
             task_id="task_id",
             thought_messages=[
                 {
-                    "content": "string",
-                    "role": "user",
-                    "name": "name",
+                    "id": "id",
+                    "summary": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "type": "reasoning",
+                    "content": [
+                        {
+                            "text": "text",
+                            "type": "text",
+                            "id": 0,
+                            "annotations": [
+                                {
+                                    "file_id": "file_id",
+                                    "filename": "filename",
+                                    "index": 0,
+                                    "type": "file_citation",
+                                }
+                            ],
+                            "logprobs": [
+                                {
+                                    "token": "token",
+                                    "bytes": [0],
+                                    "logprob": 0,
+                                    "top_logprobs": [
+                                        {
+                                            "token": "token",
+                                            "bytes": [0],
+                                            "logprob": 0,
+                                        }
+                                    ],
+                                }
+                            ],
+                            "tags": ["string"],
+                        }
+                    ],
+                    "status": "in_progress",
                 }
             ],
             user_id="user_id",
@@ -399,12 +609,7 @@ class TestAsyncTasks:
     async def test_raw_response_create(self, async_client: AsyncClient) -> None:
         response = await async_client.tasks.with_raw_response.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         )
 
         assert response.is_closed is True
@@ -417,12 +622,7 @@ class TestAsyncTasks:
     async def test_streaming_response_create(self, async_client: AsyncClient) -> None:
         async with async_client.tasks.with_streaming_response.create(
             stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
+            user_message_content="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

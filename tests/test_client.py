@@ -735,15 +735,7 @@ class TestClient:
         respx_mock.post("/tasks").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.tasks.with_streaming_response.create(
-                stream=True,
-                user_message_content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            ).__enter__()
+            client.tasks.with_streaming_response.create(stream=True, user_message_content="string").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -753,15 +745,7 @@ class TestClient:
         respx_mock.post("/tasks").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.tasks.with_streaming_response.create(
-                stream=True,
-                user_message_content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            ).__enter__()
+            client.tasks.with_streaming_response.create(stream=True, user_message_content="string").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -790,15 +774,7 @@ class TestClient:
 
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
-        response = client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
+        response = client.tasks.with_raw_response.create(stream=True, user_message_content="string")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -823,14 +799,7 @@ class TestClient:
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
         response = client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+            stream=True, user_message_content="string", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -855,14 +824,7 @@ class TestClient:
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
         response = client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+            stream=True, user_message_content="string", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1610,13 +1572,7 @@ class TestAsyncClient:
 
         with pytest.raises(APITimeoutError):
             await async_client.tasks.with_streaming_response.create(
-                stream=True,
-                user_message_content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
+                stream=True, user_message_content="string"
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1628,13 +1584,7 @@ class TestAsyncClient:
 
         with pytest.raises(APIStatusError):
             await async_client.tasks.with_streaming_response.create(
-                stream=True,
-                user_message_content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
+                stream=True, user_message_content="string"
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1664,15 +1614,7 @@ class TestAsyncClient:
 
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
-        response = await client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
+        response = await client.tasks.with_raw_response.create(stream=True, user_message_content="string")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1697,14 +1639,7 @@ class TestAsyncClient:
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
         response = await client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+            stream=True, user_message_content="string", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1729,14 +1664,7 @@ class TestAsyncClient:
         respx_mock.post("/tasks").mock(side_effect=retry_handler)
 
         response = await client.tasks.with_raw_response.create(
-            stream=True,
-            user_message_content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+            stream=True, user_message_content="string", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

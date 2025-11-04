@@ -140,12 +140,7 @@ client = Client()
 
 task = client.tasks.create(
     stream=True,
-    user_message_content=[
-        {
-            "text": "text",
-            "type": "text",
-        }
-    ],
+    user_message_content="string",
     agent_config={
         "agent_id": "agent_id",
         "code_for_agent": "code_for_agent",
