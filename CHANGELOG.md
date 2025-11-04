@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.0 (2025-11-04)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** manual updates ([bbaf168](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/bbaf1688d4d1ea01d170d1a5e76a8529355e21b3))
+
+
+### Chores
+
+* **internal:** grammar fix (it's -&gt; its) ([3431d83](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/3431d83dc40eb5d429ae78822e8a3002cd3e4906))
+
 ## 1.3.0 (2025-11-03)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.2.0...v1.3.0)
