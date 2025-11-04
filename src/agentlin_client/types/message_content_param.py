@@ -11,10 +11,10 @@ from .text_content_item_param import TextContentItemParam
 from .audio_content_item_param import AudioContentItemParam
 from .image_content_item_param import ImageContentItemParam
 
-__all__ = ["MessageContentParam", "UnionMember1"]
+__all__ = ["MessageContentParam", "ContentItemList"]
 
-UnionMember1: TypeAlias = Union[
+ContentItemList: TypeAlias = Union[
     TextContentItemParam, ImageContentItemParam, AudioContentItemParam, FileContentItemParam, str
 ]
 
-MessageContentParam: TypeAlias = Union[str, SequenceNotStr[UnionMember1]]
+MessageContentParam: TypeAlias = Union[str, SequenceNotStr[ContentItemList]]

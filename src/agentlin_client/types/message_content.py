@@ -8,8 +8,8 @@ from .text_content_item import TextContentItem
 from .audio_content_item import AudioContentItem
 from .image_content_item import ImageContentItem
 
-__all__ = ["MessageContent", "UnionMember1"]
+__all__ = ["MessageContent", "ContentItemList"]
 
-UnionMember1: TypeAlias = Union[TextContentItem, ImageContentItem, AudioContentItem, FileContentItem, str]
+ContentItemList: TypeAlias = Union[TextContentItem, ImageContentItem, AudioContentItem, FileContentItem, str]
 
-MessageContent: TypeAlias = Union[str, List[UnionMember1]]
+MessageContent: TypeAlias = Union[str, List[ContentItemList]]

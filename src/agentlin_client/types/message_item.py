@@ -10,6 +10,9 @@ __all__ = ["MessageItem"]
 
 
 class MessageItem(BaseModel):
+    message_content: MessageContent
+    """消息内容，字符串或内容项数组，工具协议兼容的 message_content（保留字段）。"""
+
     role: Literal["user", "assistant", "system", "developer"]
     """消息角色。"""
 
@@ -21,9 +24,6 @@ class MessageItem(BaseModel):
 
     block_list: Optional[List[object]] = None
     """渲染块列表（图表/表格等富媒体）。"""
-
-    message_content: Optional[MessageContent] = None
-    """消息内容，字符串或内容项数组，工具协议兼容的 message_content（保留字段）。"""
 
     name: Optional[str] = None
     """角色名称（可选）。"""
