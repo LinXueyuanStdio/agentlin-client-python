@@ -6,40 +6,28 @@ from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .message_item_param import MessageItemParam
+from .reasoning_item_param import ReasoningItemParam
+from .tool_call_item_param import ToolCallItemParam
+from .tool_result_item_param import ToolResultItemParam
+from .text_content_item_param import TextContentItemParam
 
 __all__ = [
     "TaskCreateParams",
-    "UserMessageContent",
-    "UserMessageContentTextContent",
-    "UserMessageContentImageURLContent",
-    "UserMessageContentImageURLContentImageURL",
-    "UserMessageContentInputAudioContent",
-    "UserMessageContentInputAudioContentInputAudio",
-    "UserMessageContentFileContent",
-    "UserMessageContentFileContentFile",
+    "UserMessageContentUnionMember1",
+    "UserMessageContentUnionMember1ImageContentItem",
+    "UserMessageContentUnionMember1ImageContentItemImageURL",
+    "UserMessageContentUnionMember1AudioContentItem",
+    "UserMessageContentUnionMember1AudioContentItemInputAudio",
+    "UserMessageContentUnionMember1FileContentItem",
+    "UserMessageContentUnionMember1FileContentItemFile",
     "AgentConfig",
     "AgentConfigBuiltinTool",
     "AgentConfigBuiltinToolFunction",
     "ClientTool",
     "ClientToolFunction",
     "HistoryMessage",
-    "HistoryMessageContentUnionMember1",
-    "HistoryMessageContentUnionMember1TextContent",
-    "HistoryMessageContentUnionMember1ImageURLContent",
-    "HistoryMessageContentUnionMember1ImageURLContentImageURL",
-    "HistoryMessageContentUnionMember1InputAudioContent",
-    "HistoryMessageContentUnionMember1InputAudioContentInputAudio",
-    "HistoryMessageContentUnionMember1FileContent",
-    "HistoryMessageContentUnionMember1FileContentFile",
     "ThoughtMessage",
-    "ThoughtMessageContentUnionMember1",
-    "ThoughtMessageContentUnionMember1TextContent",
-    "ThoughtMessageContentUnionMember1ImageURLContent",
-    "ThoughtMessageContentUnionMember1ImageURLContentImageURL",
-    "ThoughtMessageContentUnionMember1InputAudioContent",
-    "ThoughtMessageContentUnionMember1InputAudioContentInputAudio",
-    "ThoughtMessageContentUnionMember1FileContent",
-    "ThoughtMessageContentUnionMember1FileContentFile",
 ]
 
 
@@ -47,8 +35,11 @@ class TaskCreateParams(TypedDict, total=False):
     stream: Required[bool]
     """是否启用流式（SSE）返回；true 则以 text/event-stream 推送 Task 事件。"""
 
-    user_message_content: Required[Iterable[UserMessageContent]]
-    """当前用户输入内容（多模态），按顺序提供给主 Agent。"""
+    user_message_content: Required[Union[str, SequenceNotStr[UserMessageContentUnionMember1]]]
+    """
+    当前用户输入内容（多模态），按顺序提供给主 Agent。消息内容，字符串或内容项数组，
+    工具协议兼容的 message_content（保留字段）。
+    """
 
     agent_config: AgentConfig
     """指定主 Agent 的配置；为空则按 client_id 推断默认 Agent。"""
@@ -117,15 +108,7 @@ class TaskCreateParams(TypedDict, total=False):
     """文件系统工作目录；供文件工具与代码解释器使用。"""
 
 
-class UserMessageContentTextContent(TypedDict, total=False):
-    text: Required[str]
-    """文本内容。"""
-
-    type: Required[Literal["text", "input_text"]]
-    """文本内容类型标识。"""
-
-
-class UserMessageContentImageURLContentImageURL(TypedDict, total=False):
+class UserMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
     url: Required[str]
     """图片的可访问 URL。"""
 
@@ -133,30 +116,30 @@ class UserMessageContentImageURLContentImageURL(TypedDict, total=False):
     """清晰度等级，可选 low/high/auto。"""
 
 
-class UserMessageContentImageURLContent(TypedDict, total=False):
-    image_url: Required[UserMessageContentImageURLContentImageURL]
-    """图片 URL 及清晰度参数。"""
+class UserMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
+    image_url: Required[UserMessageContentUnionMember1ImageContentItemImageURL]
+    """图片 URL 信息。"""
 
-    type: Required[Literal["image_url", "image"]]
-    """图片内容类型标识。"""
+    type: Required[Literal["image", "input_image", "output_image", "image_url"]]
+    """图片内容类型。"""
 
 
-class UserMessageContentInputAudioContentInputAudio(TypedDict, total=False):
+class UserMessageContentUnionMember1AudioContentItemInputAudio(TypedDict, total=False):
     data: Required[str]
     """Base64-encoded audio bytes"""
 
     format: Required[Literal["wav", "mp3"]]
 
 
-class UserMessageContentInputAudioContent(TypedDict, total=False):
-    input_audio: Required[UserMessageContentInputAudioContentInputAudio]
-    """输入音频内容（Base64 编码）。"""
+class UserMessageContentUnionMember1AudioContentItem(TypedDict, total=False):
+    input_audio: Required[UserMessageContentUnionMember1AudioContentItemInputAudio]
+    """输入音频内容。"""
 
-    type: Required[Literal["input_audio"]]
-    """音频内容类型标识。"""
+    type: Required[Literal["input_audio", "output_audio", "audio"]]
+    """音频内容类型。"""
 
 
-class UserMessageContentFileContentFile(TypedDict, total=False):
+class UserMessageContentUnionMember1FileContentItemFile(TypedDict, total=False):
     file_url: Required[str]
     """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
 
@@ -167,19 +150,20 @@ class UserMessageContentFileContentFile(TypedDict, total=False):
     """Optional Base64-encoded file content"""
 
 
-class UserMessageContentFileContent(TypedDict, total=False):
-    file: Required[UserMessageContentFileContentFile]
-    """文件详情（URL/文件名/可选 Base64 内容）。"""
+class UserMessageContentUnionMember1FileContentItem(TypedDict, total=False):
+    file: Required[UserMessageContentUnionMember1FileContentItemFile]
+    """文件详情。"""
 
     type: Required[Literal["file"]]
-    """文件内容类型标识。"""
+    """文件内容类型。"""
 
 
-UserMessageContent: TypeAlias = Union[
-    UserMessageContentTextContent,
-    UserMessageContentImageURLContent,
-    UserMessageContentInputAudioContent,
-    UserMessageContentFileContent,
+UserMessageContentUnionMember1: TypeAlias = Union[
+    TextContentItemParam,
+    UserMessageContentUnionMember1ImageContentItem,
+    UserMessageContentUnionMember1AudioContentItem,
+    UserMessageContentUnionMember1FileContentItem,
+    str,
 ]
 
 
@@ -283,155 +267,6 @@ class ClientTool(TypedDict, total=False):
     """工具类型，此处固定为 function。"""
 
 
-class HistoryMessageContentUnionMember1TextContent(TypedDict, total=False):
-    text: Required[str]
-    """文本内容。"""
+HistoryMessage: TypeAlias = Union[ReasoningItemParam, MessageItemParam, ToolCallItemParam, ToolResultItemParam]
 
-    type: Required[Literal["text", "input_text"]]
-    """文本内容类型标识。"""
-
-
-class HistoryMessageContentUnionMember1ImageURLContentImageURL(TypedDict, total=False):
-    url: Required[str]
-    """图片的可访问 URL。"""
-
-    detail: Optional[Literal["low", "high", "auto"]]
-    """清晰度等级，可选 low/high/auto。"""
-
-
-class HistoryMessageContentUnionMember1ImageURLContent(TypedDict, total=False):
-    image_url: Required[HistoryMessageContentUnionMember1ImageURLContentImageURL]
-    """图片 URL 及清晰度参数。"""
-
-    type: Required[Literal["image_url", "image"]]
-    """图片内容类型标识。"""
-
-
-class HistoryMessageContentUnionMember1InputAudioContentInputAudio(TypedDict, total=False):
-    data: Required[str]
-    """Base64-encoded audio bytes"""
-
-    format: Required[Literal["wav", "mp3"]]
-
-
-class HistoryMessageContentUnionMember1InputAudioContent(TypedDict, total=False):
-    input_audio: Required[HistoryMessageContentUnionMember1InputAudioContentInputAudio]
-    """输入音频内容（Base64 编码）。"""
-
-    type: Required[Literal["input_audio"]]
-    """音频内容类型标识。"""
-
-
-class HistoryMessageContentUnionMember1FileContentFile(TypedDict, total=False):
-    file_url: Required[str]
-    """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
-
-    filename: Required[str]
-    """文件名（含扩展名），用于渲染与调试追踪。"""
-
-    file_data: str
-    """Optional Base64-encoded file content"""
-
-
-class HistoryMessageContentUnionMember1FileContent(TypedDict, total=False):
-    file: Required[HistoryMessageContentUnionMember1FileContentFile]
-    """文件详情（URL/文件名/可选 Base64 内容）。"""
-
-    type: Required[Literal["file"]]
-    """文件内容类型标识。"""
-
-
-HistoryMessageContentUnionMember1: TypeAlias = Union[
-    HistoryMessageContentUnionMember1TextContent,
-    HistoryMessageContentUnionMember1ImageURLContent,
-    HistoryMessageContentUnionMember1InputAudioContent,
-    HistoryMessageContentUnionMember1FileContent,
-]
-
-
-class HistoryMessage(TypedDict, total=False):
-    content: Required[Union[str, Iterable[HistoryMessageContentUnionMember1]]]
-    """消息内容，字符串或多模态内容数组。"""
-
-    role: Required[Literal["user", "assistant", "system", "developer"]]
-    """角色。"""
-
-    name: str
-    """可选的角色名称。"""
-
-
-class ThoughtMessageContentUnionMember1TextContent(TypedDict, total=False):
-    text: Required[str]
-    """文本内容。"""
-
-    type: Required[Literal["text", "input_text"]]
-    """文本内容类型标识。"""
-
-
-class ThoughtMessageContentUnionMember1ImageURLContentImageURL(TypedDict, total=False):
-    url: Required[str]
-    """图片的可访问 URL。"""
-
-    detail: Optional[Literal["low", "high", "auto"]]
-    """清晰度等级，可选 low/high/auto。"""
-
-
-class ThoughtMessageContentUnionMember1ImageURLContent(TypedDict, total=False):
-    image_url: Required[ThoughtMessageContentUnionMember1ImageURLContentImageURL]
-    """图片 URL 及清晰度参数。"""
-
-    type: Required[Literal["image_url", "image"]]
-    """图片内容类型标识。"""
-
-
-class ThoughtMessageContentUnionMember1InputAudioContentInputAudio(TypedDict, total=False):
-    data: Required[str]
-    """Base64-encoded audio bytes"""
-
-    format: Required[Literal["wav", "mp3"]]
-
-
-class ThoughtMessageContentUnionMember1InputAudioContent(TypedDict, total=False):
-    input_audio: Required[ThoughtMessageContentUnionMember1InputAudioContentInputAudio]
-    """输入音频内容（Base64 编码）。"""
-
-    type: Required[Literal["input_audio"]]
-    """音频内容类型标识。"""
-
-
-class ThoughtMessageContentUnionMember1FileContentFile(TypedDict, total=False):
-    file_url: Required[str]
-    """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
-
-    filename: Required[str]
-    """文件名（含扩展名），用于渲染与调试追踪。"""
-
-    file_data: str
-    """Optional Base64-encoded file content"""
-
-
-class ThoughtMessageContentUnionMember1FileContent(TypedDict, total=False):
-    file: Required[ThoughtMessageContentUnionMember1FileContentFile]
-    """文件详情（URL/文件名/可选 Base64 内容）。"""
-
-    type: Required[Literal["file"]]
-    """文件内容类型标识。"""
-
-
-ThoughtMessageContentUnionMember1: TypeAlias = Union[
-    ThoughtMessageContentUnionMember1TextContent,
-    ThoughtMessageContentUnionMember1ImageURLContent,
-    ThoughtMessageContentUnionMember1InputAudioContent,
-    ThoughtMessageContentUnionMember1FileContent,
-]
-
-
-class ThoughtMessage(TypedDict, total=False):
-    content: Required[Union[str, Iterable[ThoughtMessageContentUnionMember1]]]
-    """消息内容，字符串或多模态内容数组。"""
-
-    role: Required[Literal["user", "assistant", "system", "developer"]]
-    """角色。"""
-
-    name: str
-    """可选的角色名称。"""
+ThoughtMessage: TypeAlias = Union[ReasoningItemParam, MessageItemParam, ToolCallItemParam, ToolResultItemParam]
