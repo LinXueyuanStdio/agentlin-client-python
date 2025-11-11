@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.8.1 (2025-11-11)
+
+Full Changelog: [v1.8.0...v1.8.1](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.0...v1.8.1)
+
+### Bug Fixes
+
+* compat with Python 3.14 ([c0a0706](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/c0a0706a7281f8eb9ed10a2213f8eba5499bf5fb))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([d27fd00](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/d27fd002c13f8b20d432133d89f3206169762d71))
+
 ## 1.8.0 (2025-11-04)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.7.0...v1.8.0)
