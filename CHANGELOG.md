@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.2 (2025-11-12)
+
+Full Changelog: [v1.8.1...v1.8.2](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.1...v1.8.2)
+
+### Bug Fixes
+
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([749180b](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/749180bbc866d3fce61807ca03fe3696e4b78110))
+
 ## 1.8.1 (2025-11-11)
 
 Full Changelog: [v1.8.0...v1.8.1](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.0...v1.8.1)
