@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.3 (2025-11-22)
+
+Full Changelog: [v1.8.2...v1.8.3](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.2...v1.8.3)
+
+### Chores
+
+* add Python 3.14 classifier and testing ([d47a088](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/d47a0881eaeeca6a558f2f7b74ebd0e5d6647851))
+
 ## 1.8.2 (2025-11-12)
 
 Full Changelog: [v1.8.1...v1.8.2](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.1...v1.8.2)
