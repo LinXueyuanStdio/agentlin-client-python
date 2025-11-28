@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.3 (2025-11-28)
+
+Full Changelog: [v1.8.2...v1.8.3](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.2...v1.8.3)
+
+### Bug Fixes
+
+* ensure streams are always closed ([3092015](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/3092015568db6a9aa14f0f9b889d594bda3f8f22))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([d47a088](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/d47a0881eaeeca6a558f2f7b74ebd0e5d6647851))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([76f6a2d](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/76f6a2d908b82465e63e9ac4647b42264689bfc4))
+
 ## 1.8.2 (2025-11-12)
 
 Full Changelog: [v1.8.1...v1.8.2](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.1...v1.8.2)
