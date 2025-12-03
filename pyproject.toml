@@ -1,20 +1,22 @@
 [project]
 name = "agentlin_client"
-version = "1.8.3"
+version = "1.8.4"
 description = "The official Python library for the client API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
 { name = "Client", email = "linxy59@mail2.sysu.edu.cn" },
 ]
+
 dependencies = [
-    "httpx>=0.23.0, <1",
-    "pydantic>=1.9.0, <3",
-    "typing-extensions>=4.10, <5",
-    "anyio>=3.5.0, <5",
-    "distro>=1.7.0, <2",
-    "sniffio",
+  "httpx>=0.23.0, <1",
+  "pydantic>=1.9.0, <3",
+  "typing-extensions>=4.10, <5",
+  "anyio>=3.5.0, <5",
+  "distro>=1.7.0, <2",
+  "sniffio",
 ]
+
 requires-python = ">= 3.9"
 classifiers = [
   "Typing :: Typed",

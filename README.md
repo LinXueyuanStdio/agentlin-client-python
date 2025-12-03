@@ -95,6 +95,7 @@ pip install agentlin_client[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from agentlin_client import DefaultAioHttpClient
 from agentlin_client import AsyncClient
@@ -102,7 +103,7 @@ from agentlin_client import AsyncClient
 
 async def main() -> None:
     async with AsyncClient(
-        api_key="My API Key",
+        api_key=os.environ.get("AGENTLIN_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         task = await client.tasks.create(
