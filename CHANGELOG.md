@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.4 (2025-12-09)
+
+Full Changelog: [v1.8.3...v1.8.4](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.3...v1.8.4)
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([5dbefab](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/5dbefabde8e2ce55621711edcdd1a3ce3f466507))
+
+
+### Chores
+
+* **docs:** use environment variables for authentication in code snippets ([92b7c7a](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/92b7c7a96ce5d2fd5ce2c0af97bb4db00dd0c339))
+* update lockfile ([d1b5a57](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/d1b5a575ce40e986fcc1a57752486006b6c71496))
+
 ## 1.8.3 (2025-11-28)
 
 Full Changelog: [v1.8.2...v1.8.3](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.2...v1.8.3)
