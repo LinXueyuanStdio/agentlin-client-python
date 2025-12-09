@@ -8,6 +8,8 @@ __all__ = ["JsonrpcError"]
 
 
 class JsonrpcError(BaseModel):
+    """JSON-RPC error object."""
+
     code: int
     """错误码（遵循 JSON-RPC 约定或服务端自定义）。"""
 

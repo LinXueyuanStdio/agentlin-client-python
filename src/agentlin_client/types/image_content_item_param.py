@@ -9,6 +9,8 @@ __all__ = ["ImageContentItemParam", "ImageURL"]
 
 
 class ImageURL(TypedDict, total=False):
+    """图片 URL 信息。"""
+
     url: Required[str]
     """图片的可访问 URL。"""
 

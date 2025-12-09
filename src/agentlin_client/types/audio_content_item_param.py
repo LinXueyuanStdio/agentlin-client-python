@@ -8,6 +8,8 @@ __all__ = ["AudioContentItemParam", "InputAudio"]
 
 
 class InputAudio(TypedDict, total=False):
+    """输入音频内容。"""
+
     data: Required[str]
     """Base64-encoded audio bytes"""
 
