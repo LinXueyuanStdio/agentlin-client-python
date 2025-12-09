@@ -9,6 +9,8 @@ __all__ = ["FileContentItem", "File"]
 
 
 class File(BaseModel):
+    """文件详情。"""
+
     file_url: str
     """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
 

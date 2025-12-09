@@ -9,6 +9,8 @@ __all__ = ["ImageContentItem", "ImageURL"]
 
 
 class ImageURL(BaseModel):
+    """图片 URL 信息。"""
+
     url: str
     """图片的可访问 URL。"""
 
