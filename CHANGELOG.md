@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.5 (2025-12-09)
+
+Full Changelog: [v1.8.4...v1.8.5](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.4...v1.8.5)
+
+### Chores
+
+* add missing docstrings ([60b9832](https://github.com/LinXueyuanStdio/agentlin-client-python/commit/60b98322e8df7afe15edd455b8d7c42eb749485e))
+
 ## 1.8.4 (2025-12-09)
 
 Full Changelog: [v1.8.3...v1.8.4](https://github.com/LinXueyuanStdio/agentlin-client-python/compare/v1.8.3...v1.8.4)
