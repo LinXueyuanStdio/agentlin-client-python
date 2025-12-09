@@ -8,6 +8,8 @@ __all__ = ["FileContentItemParam", "File"]
 
 
 class File(TypedDict, total=False):
+    """文件详情。"""
+
     file_url: Required[str]
     """远程文件的可访问 URL；与 file_data 二选一，可同时提供以便存档。"""
 

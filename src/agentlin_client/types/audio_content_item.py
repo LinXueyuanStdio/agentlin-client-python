@@ -8,6 +8,8 @@ __all__ = ["AudioContentItem", "InputAudio"]
 
 
 class InputAudio(BaseModel):
+    """输入音频内容。"""
+
     data: str
     """Base64-encoded audio bytes"""
 

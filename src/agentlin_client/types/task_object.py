@@ -20,6 +20,8 @@ Output: TypeAlias = Annotated[
 
 
 class TaskObject(BaseModel):
+    """The task object returned in JSON-RPC result."""
+
     id: str
     """任务 ID。"""
 

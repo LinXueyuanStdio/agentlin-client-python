@@ -102,6 +102,8 @@ class TaskCreateParams(TypedDict, total=False):
 
 
 class AgentConfigBuiltinToolFunction(TypedDict, total=False):
+    """函数工具定义（名称/参数/描述）。"""
+
     name: Required[str]
     """工具/函数名称（唯一标识）。"""
 
@@ -124,6 +126,8 @@ class AgentConfigBuiltinTool(TypedDict, total=False):
 
 
 class AgentConfig(TypedDict, total=False):
+    """指定主 Agent 的配置；为空则按 client_id 推断默认 Agent。"""
+
     agent_id: Required[str]
     """Agent 唯一标识（目录名）。"""
 
@@ -180,6 +184,8 @@ class AgentConfig(TypedDict, total=False):
 
 
 class ClientToolFunction(TypedDict, total=False):
+    """函数工具定义（名称/参数/描述）。"""
+
     name: Required[str]
     """工具/函数名称（唯一标识）。"""
 
